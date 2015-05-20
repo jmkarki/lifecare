@@ -11,11 +11,18 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+	'password' => 'Auth\PasswordController'
 ]);
+
+Route::group(['middleware' => 'auth'], function()
+{
+	Route::controllers([
+		'client' => 'ClientController',
+	]);
+});
+

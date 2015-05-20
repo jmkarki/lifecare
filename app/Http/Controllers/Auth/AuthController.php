@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
+	protected $redirectTo = '/home';
 	/*
 	|--------------------------------------------------------------------------
 	| Registration & Login Controller
@@ -35,4 +36,25 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
+	//overridding the existing register developed by Taylor Otwell feels good
+
+	public function getRegister()
+	{
+		return redirect('/');
+	}
+
+	public function postRegister()
+	{
+		return redirect('/');
+	}
+
+	public function getLogin()
+	{
+		return view('auth.login');
+	}
+
+	// public function postLogin()
+	// {
+	// 	return 'Sorry';
+	// }
 }

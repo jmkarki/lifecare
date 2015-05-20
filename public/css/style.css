@@ -1,0 +1,86 @@
+.app-footer{
+	background-color: #FBFBFB;
+	display: block;
+	padding: 10px;
+	margin-top: 40px;
+	border-top: 1px solid #dfdfdf;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding-top: 30px !important;
+	padding-bottom: 8px !important;
+	font-size: 12px;
+}
+.wrapper{
+	position: relative;
+	padding-bottom: 100px;
+	min-height: 100%;
+}
+.app-terms, .app-policy{
+	padding-left: 14px !important;
+
+}
+.section-title{
+	border-bottom: 1px solid #4E5D6C;
+	text-align: center;
+}
+.selected-option{
+/*  border-right: 7px solid #36A7E8;
+  border-radius: 2px;*/
+}
+.login-section{
+	border: 1px solid #dfdfdf;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+.legend-title{
+	background: #40ABE9;
+	color: #fff;
+	margin-bottom: 0px;
+	border-radius: 4px 4px 0px 0px;
+	border-color: #2fa4e7;
+	padding: 10px;
+	text-transform: uppercase;
+	font-size: 13px;
+	font-weight: bold;
+}
+.app-form-horizontal{
+	border: 1px solid #42ACE9;  
+	border-radius: 5px;
+}
+.form-horizontal-inner{
+	padding: 10px;
+}
+.app-alert-danger{
+  background-color: #fff2f1 !important;
+  border-color: #ffd8dd !important;
+  color: #ff4d49 !important;
+}
+.danger-close, .danger-close span:hover{
+	color: #FF4D49 !important;
+	text-decoration: none !important;
+}
+.running-state{
+	position: absolute;
+	top: 5px;
+	padding-left: 17px;
+	min-width: 20px !important;
+}
+input.ng-invalid, 
+textarea.ng-invalid, 
+select.ng-invalid, 
+input.ng-dirty, 
+textarea.ng-dirty, 
+select.ng-dirty{
+	border: 1px solid #ff4d49;
+}
+input.ng-valid, 
+textarea.ng-valid, 
+select.ng-valid {
+  border: 1px solid rgb(195, 201, 202) !important;
+}
+input.ng-pristine, 
+textarea.ng-pristine, 
+select.ng-pristine{
+  border: 1px solid rgb(195, 201, 202) !important;
+}
