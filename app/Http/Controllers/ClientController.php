@@ -1,19 +1,24 @@
-<?php namespace App\Http\Controllers;
-
+<?php 
+namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateNew;
 use View;
 use App\Role;
 use App\Client;
+use Carbon\Carbon;
 
 class ClientController extends Controller {
 
-	public function getIndex()
+	public function index()
 	{
-		return 'Under Construction';
+		return View::make('client.home')->with(['url' => 'home']);
+	}
+
+	public function getShow()
+	{
+		return View::make('client.client-show')->with(['url' => 'client/show']);
 	}
 
 	public function getCreate()
@@ -24,10 +29,12 @@ class ClientController extends Controller {
 	public function postCreate(CreateNew $request, Client $client)
 	{	
 		$client->name = $request->get('name');
-		$value = Role::whereValue(100)->first()->id;
-		$client->role_id = (!empty($value)) ? $value : 0;
+		$client->role_id = 100;
 		$client->company_id = \Auth::user()->company_id;
-		$client->username = strtolower(str_replace(' ', $request->get('name'), '_'));
+		// $client->username = $request->get('username');
+		$client->password = \Hash::make($request->get('password'));
+		$client->email = $request->get('email');
+		$client->full_address = $request->get('full_address');
 		return $client;
 	}
 
@@ -39,5 +46,10 @@ class ClientController extends Controller {
 	public function getView()
 	{
 		return View::make('client.view')->with(['url'=>'client/view']);
+	}
+
+	public function getCheck()
+	{
+		return Service::all();
 	}
 }

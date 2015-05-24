@@ -1,7 +1,8 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', []), typingTimer,
+	siteBase = 'http://local.dev/lifecare/public/';
 
-	app.config(['$interpolateProvider','$httpProvider',function($interpolateProvider,$httpProvider)
-	{
+	app.config(['$interpolateProvider','$httpProvider',
+		function($interpolateProvider,$httpProvider){
 		$httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
@@ -10,10 +11,12 @@ var app = angular.module('myApp', []);
 	app.controller('createController', function($scope, $http, $window, $timeout)
 	{
 		$scope.has = false;
+		$scope.match = true;
 		$scope.btn = 'Create';
 		$scope.doPost = function(createForm, url){
 			if(createForm.$invalid && createForm.$submitted){
 				$scope.has = true;
+				$scope.notallvalid = 'Not all required fields are valid.';
 			}else if(createForm.$valid && createForm.$submitted){
 				$scope.running = true;
 				$scope.btn = 'Creating';
@@ -25,7 +28,58 @@ var app = angular.module('myApp', []);
 					.success(function(response){
 						console.log(response);
 					});
-				},1000);
+				},500);
 			}
 		}
+		$scope.check = function(repassword){
+			$timeout.cancel(typingTimer);
+			typingTimer = $timeout(function(){
+				if(repassword != $scope.client.password)
+				{
+					$scope.createForm.repassword.$setValidity('match', false);
+					$scope.donotmatch = 'Password do  not match';
+					$scope.match = false;
+				}else
+				{
+					$scope.createForm.repassword.$setValidity('match', true);
+					$scope.donotmatch = '';
+					$scope.match = true;
+				}
+			},300);
+
+		}
+		$scope.confirmEmail = function(email){
+			$timeout.cancel(typingTimer);
+			var isUnique;
+			typingTimer = $timeout(function(){
+				// isUnique = ClientService.checkEmail(email);
+			},300);
+			console.log(isUnique);
+		}
 	});
+
+
+	app.controller('TestController', ['$scope', 'FetchService', function($scope, FetchService) {
+
+		$scope.fetchAll = function(){
+			$scope.pullRequests = FetchService.getPullRequests();
+		}		
+	}]);
+	app.provider('FetchService', ['$q', '$http', function($q, $http) {
+	        var getPullRequests = function() {
+	          var deferred = $q.defer();
+	          $http.get(siteBase+'service/check')
+	          .success(function(data) {
+	            deferred.resolve(data);
+	          })
+	          .error(function(reason) {
+	            deferred.reject(reason);
+	          });
+	          return deferred.promise;
+	        };
+
+	        return {
+	          getPullRequests: getPullRequests
+	        };
+	  }]);
+

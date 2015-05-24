@@ -1,58 +1,109 @@
-@extends('app')
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Lifecare</title>
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-7 col-xs-offset-3 login-section">
-			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-			  <fieldset>
-			    <legend class="text-center">Sign In</legend>
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your credentials.<br><br>
-							<ol>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ol>
-						</div>
-					@endif
+	<link href="{{asset('/css/crulean.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
+	<!-- Fonts -->
+	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="wrapper">
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle Navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Lifecare</a>
+				</div>
 
-					<div class="form-group">
-						<label class="col-md-4 control-label">Email</label>
-						<div class="col-md-6">
-							<input type="text" class="form-control" placeholder="Username" name="email" value="{{ old('username') }}">								
-						</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<!-- <li><a href="{{ url('/') }}">Home</a></li> -->
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						@if (Auth::guest())
+							<!-- <li><a href="{{ url('/auth/login') }}">Login</a></li> -->
+							<!-- <li><a href="{{ url('/auth/register') }}">Register</a></li> -->
+						@else
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+								</ul>
+							</li>
+						@endif
+					</ul>
+				</div>
+			</div>
+		</nav>		
+		<div class="content-holder">
+			<div class="container">
+				<div class="login-container">
+					<div class="legend">
+						<h3>Lifecare Log In</h3>
 					</div>
-
-					<div class="form-group">
-						<label class="col-md-4 control-label">Password</label>
-						<div class="col-md-6">
-							<input type="password" class="form-control" placeholder="Password" name="password">
-						</div>
+					<div id="output"></div>
+					<div class="avatar"></div>
+					<div class="form-box" ng-controller="LoginFormController">	    
+					    <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+					        <input name="email" type="email" placeholder="YOUR EMAIL" value="{{old('email')}}">
+					        <input type="password" name="password" placeholder="PASSWORD">
+					        <input type="text" name="user_id" placeholder="USER ID" value="{{old('user_id')}}">
+					        <input type="hidden" name="_token" value="{{ csrf_token() }}"><p></p>
+					       	@if(count($errors) > 0)
+					       		<div class="alert app-alert app-alert-danger">
+					       		{!!$errors->first('email','<span class="text-danger">:message</span><br>')!!}
+					       		{!!($errors->has('password') && $errors->has('email')) ? '<hr>': ''!!}
+					        	{!!$errors->first('password','<span class="text-danger">:message</span>')!!}
+					       	</div>
+					       	@endif	        
+					        <button class="btn btn-primary btn-block login" ng-click="checkLogin()" type="submit">[[buttonText]]</button>
+					    </form>
 					</div>
-					<div class="form-group">
-						<div class="col-md-6 col-md-offset-4">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" name="remember"> Remember Me
-								</label>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="col-md-6 col-md-offset-4">
-							<button type="submit" class="btn btn-primary">Sign In</button>
-
-							<a class="btn btn-link" href="{{ url('/password/email') }}"><small>Forgot Your Password?</small></a>
-						</div>
-					</div>
-			  </fieldset>
-			</form>
-		</div>
+				</div>        
+			</div>
+		</div> 
+		<div class="app-footer">
+	       <center>
+	          <p>&copy; 2015 | All rights reserved. <a href="javascript:void(0)" class="app-terms hidden-xs">Privacy</a>  <a href="javascript:void(0)" class="app-policy hidden-xs">Terms</a> <a href="" class="app-policy hidden-xs">Security</a></p>
+	       </center>	             
+	  </div>
 	</div>
-</div>
-@endsection
+	<script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
+	<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>	
+	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+		app.config(['$interpolateProvider',
+			function($interpolateProvider){
+			$interpolateProvider.startSymbol('[[');
+			$interpolateProvider.endSymbol(']]');
+		}]);
+
+		app.controller('LoginFormController',function($scope){
+		$scope.buttonText = 'Sign In';
+		$scope.checkLogin = function(){
+			$scope.buttonText = 'Signing In ...';
+		}
+	});
+	</script>
+</body>
+</html>

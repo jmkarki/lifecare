@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'Auth\AuthController@getLogin');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -24,5 +23,6 @@ Route::group(['middleware' => 'auth'], function()
 	Route::controllers([
 		'client' => 'ClientController',
 	]);
+	Route::get('/home', 'ClientController@index');
 });
 

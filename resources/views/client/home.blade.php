@@ -5,21 +5,19 @@
 	<div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
 	@include('include.sidebar-list')
 	</div>
-	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" ng-controller="createController">
-			<div>
-			<ul class="breadcrumb">
-				<li>Home</li> 
-				<li>New Client</li>
-			</ul>			
-		</div>	
+	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" ng-controller="TestController">
 		<form class="form-horizontal app-form-horizontal" name="createForm" ng-submit="doPost(createForm, '{{url('/')}}')" novalidate>
 		  <fieldset>
-		    <!-- <legend class="text-center"><i class="fa fa-user"></i> <b>Create New Client</b></legend> -->
-		    <div class="form-horizontal-inner">
+		  <button ng-click="">Get All</button>
+
+
+		  [[pullRequests]]
+		    <!-- <legend class="text-center legend-title"><i class="fa fa-user"></i> <b>Create New Client</b></legend> -->
+		<!--     <div class="form-horizontal-inner">
 			    <div class="row">
 					<div class="col-md-12">
 						<div ng-if="has && !createForm.$valid" class="alert " ng-class="{'alert-danger text-danger app-alert-danger': has}">
-						[[notallvalid]]
+						Not all required fields are valid.
 						<a href="#" class="pull-right" style="text-decoration: none!important;"><span class="danger-close">&times;</span></a>
 						</div>
 					</div>		  		
@@ -34,28 +32,8 @@
 			    <div class="form-group">
 			      <label for="inputEmail" class="col-lg-2 control-label">Email <span class="text-danger">*</span></label>
 			      <div class="col-lg-10">
-			        <input type="email" class="form-control" ng-change="confirmEmail(client.email)" ng-model="client.email" placeholder="Email" required>
+			        <input type="email" class="form-control" ng-model="client.email" placeholder="Email" required>
 			      </div>
-			    </div>
-			   <!--  <div class="form-group">
-			    	<label for="inputUsername" class="col-lg-2 control-label">Username <span class="text-danger">*</span></label>
-			    	<div class="col-lg-10">
-			    		<input type="text" id="inputUsername" class="form-control" ng-model="client.username" placeholder="Username" required>
-			    	</div>
-			    </div> -->
-			    <div class="form-group">
-			    	<label for="inputPassword" class="col-lg-2 control-label">Password <span class="text-danger">*</span></label>
-			    	<div class="col-lg-10">
-			    		<input type="password" class="form-control" ng-model="client.password" placeholder="Password" required>
-			    	</div>
-			    </div>
-			    <div class="form-group">
-			    	<label for="inputPassword" class="col-lg-2 control-label">Re-password <span class="text-danger">*</span></label>
-			    	<div class="col-lg-10">
-			    		<input type="password" class="form-control" name="repassword" ng-change="check(client.repassword)" ng-model="client.repassword" placeholder="Confirm Password" required match>
-			    		<span ng-if="match" class="help-block">Please remember the password you entered above ..</span>
-			    		<span ng-if="!match" ng-class="{'app-text-danger': !match}">[[donotmatch]]</span>
-			    	</div>
 			    </div>
 			    <div class="form-group">
 			      <label for="textArea" class="col-lg-2 control-label">Full Address <span class="text-danger">*</span></label>
@@ -83,10 +61,9 @@
 			        <span ng-if="running" class="running-state">@include('include.svg-dot')</span>
 			      </div>
 			    </div>
-		    </div>
+		    </div> -->
 		  </fieldset>
 		</form>
-		[[client]]
 	</div>
 	</div>
 </div>
