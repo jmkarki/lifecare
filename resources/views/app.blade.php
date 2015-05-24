@@ -11,9 +11,6 @@
 	<link rel="stylesheet" href="{{url('css/fontawesome.min.css')}}">
 	<script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
 	<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/app.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/services.js')}}"></script>
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -67,6 +64,9 @@
 	       </center>	             
 	  </div>
 	</div>
+		<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>
+	<script type="text/javascript" src="{{url('js/app.js')}}"></script>
+	<script type="text/javascript" src="{{url('js/services.js')}}"></script>
 	@yield('script')
 </body>
 </html>

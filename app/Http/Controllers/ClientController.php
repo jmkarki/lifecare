@@ -50,6 +50,6 @@ class ClientController extends Controller {
 
 	public function getCheck()
 	{
-		return Service::all();
+		return ['status' => 'Ok', 'statusCode' => 200];
 	}
 }

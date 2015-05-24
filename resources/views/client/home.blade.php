@@ -8,7 +8,7 @@
 	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" ng-controller="TestController">
 		<form class="form-horizontal app-form-horizontal" name="createForm" ng-submit="doPost(createForm, '{{url('/')}}')" novalidate>
 		  <fieldset>
-		  <button ng-click="">Get All</button>
+		  <button ng-click="fetchAll()">Get All</button>
 
 
 		  [[pullRequests]]

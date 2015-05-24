@@ -1,14 +1,14 @@
-var app = angular.module('myApp', []), typingTimer,
-	siteBase = 'http://local.dev/lifecare/public/';
-
-	app.config(['$interpolateProvider','$httpProvider',
+var typingTimer;
+var siteBase = 'http://local.dev/lifecare/public/';
+var app = angular.module('myApp', [])
+	.config(['$interpolateProvider','$httpProvider',
 		function($interpolateProvider,$httpProvider){
 		$httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
-	}]);
+	}])
 
-	app.controller('createController', function($scope, $http, $window, $timeout)
+	.controller('createController', function($scope, $http, $window, $timeout)
 	{
 		$scope.has = false;
 		$scope.match = true;
@@ -52,24 +52,25 @@ var app = angular.module('myApp', []), typingTimer,
 			$timeout.cancel(typingTimer);
 			var isUnique;
 			typingTimer = $timeout(function(){
-				// isUnique = ClientService.checkEmail(email);
+				isUnique = ClientService.checkEmail(email);
 			},300);
 			console.log(isUnique);
 		}
-	});
+	})
 
+	.controller('TestController', function($scope, GithubService,$timeout) {
 
-	app.controller('TestController', ['$scope', 'FetchService', function($scope, FetchService) {
-
+		$scope.pullRequests = {};
 		$scope.fetchAll = function(){
-			$scope.pullRequests = FetchService.getPullRequests();
+			$scope.pullRequests = GithubService.getPullRequests();				
 		}		
-	}]);
-	app.provider('FetchService', ['$q', '$http', function($q, $http) {
+	})
+	.factory('FetchService', ['$q', '$http', function($q, $http) {
 	        var getPullRequests = function() {
 	          var deferred = $q.defer();
-	          $http.get(siteBase+'service/check')
+	          $http.get(siteBase+'client/check')
 	          .success(function(data) {
+	          	console.log(data);
 	            deferred.resolve(data);
 	          })
 	          .error(function(reason) {
