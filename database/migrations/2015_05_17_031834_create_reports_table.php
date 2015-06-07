@@ -21,6 +21,7 @@ class CreateReportsTable extends Migration {
 			$table->string('file_name');
 			$table->string('file_size');
 			$table->string('file_ext');
+			$table->string('mime');
 			$table->integer('downloaded');
 			$table->string('lab_num');
 			$table->timestamps();

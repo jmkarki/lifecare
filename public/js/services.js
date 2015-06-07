@@ -1,63 +1,56 @@
-var siteBase = 'http://local.dev/lifecare/public/';
-app.factory('GithubService', ['$q', '$http', function($q, $http) {
-		var getPullRequests = function() {
-		  var deferred = $q.defer();
-		  $http.get('https://api.github.com/repos/angular/angular.js/pulls')
-		  .success(function(data) {
-		    deferred.resolve(data);
-		  })
-		  .error(function(reason) {
-		    deferred.reject(reason);
-		  });
-		  return deferred.promise;
-		};
+	app.factory('RemoteService', function ($http, toaster) 
+	{ 
+		var client = {};
 
-		return {
-		  getPullRequests: getPullRequests
-		};
-	 }])
-
-	.factory('ClientService',['$q','$http', function($q, $http){
-		deferred = $q.defer();
-		var checkEmail = function(email){
-		$http.get(siteBase+'client/check?email='+email)
-		    .success(function(data) {
-		      deferred.resolve(data);
-		    })
-		    .error(function(reason) {
-		      deferred.reject(reason);
+		client.get = function (q) {
+		    return $http.get(_url + q).then(function (results){
+		        return results.data;
 		    });
-		    return deferred.promise;
 		};
-	}])
+		client.post = function (q, object){
+		    return $http.post(_url + q, object).then(function (results){
+		        return results.data;
+		    });
+		};
+		client.put = function (q, object) {
+		    return $http.put(_url + q, object).then(function (results){
+		        return results.data;
+		    });
+		};
+		client.delete = function (q) {
+		    return $http.delete(_url + q).then(function (results) {
+		        return results.data;
+		    });
+		};
+		client.toast = function (data) {
+            toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
+        }
 
-	.factory('Data', ['$http', function ($http) { 
-	    // This service connects to our REST API
+		return client;
+	})
 
-	        var obj = {};
-	        obj.toast = function (data) {
-	            toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
-	        }
-	        obj.get = function (q) {
-	            return $http.get(serviceBase + q).then(function (results) {
-	                return results.data;
-	            });
-	        };
-	        obj.post = function (q, object) {
-	            return $http.post(serviceBase + q, object).then(function (results) {
-	                return results.data;
-	            });
-	        };
-	        obj.put = function (q, object) {
-	            return $http.put(serviceBase + q, object).then(function (results) {
-	                return results.data;
-	            });
-	        };
-	        obj.delete = function (q) {
-	            return $http.delete(serviceBase + q).then(function (results) {
-	                return results.data;
-	            });
-	        };
-
-	        return obj;
-	}]);
+	.factory('AttachService', function($q, $http) {
+		var service = {
+			search: function(name) {
+			var d = $q.defer();
+				$http.post(_url + 'client/available', name)
+				.success(function(data, status) {
+					d.resolve(data, status);
+				}).error(function(data, status) {
+					d.reject(data, status);
+				});
+				return d.promise;
+			},
+			create: function(store) {
+				var d = $q.defer();
+				$http.post(_url+'client/create', store)
+				.success(function(data, status) {
+					d.resolve(data, status);
+				}).error(function(data, status) {
+					d.reject(data, status);
+				});
+				return d.promise;
+			}
+		}
+		return service;
+	});

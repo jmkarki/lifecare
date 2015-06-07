@@ -66,7 +66,7 @@
 					    <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
 					        <input name="email" type="email" placeholder="YOUR EMAIL" value="{{old('email')}}">
 					        <input type="password" name="password" placeholder="PASSWORD">
-					        <input type="text" name="user_id" placeholder="USER ID" value="{{old('user_id')}}">
+					        <!-- <input type="text" name="user_id" placeholder="USER ID" value="{{old('user_id')}}"> -->
 					        <input type="hidden" name="_token" value="{{ csrf_token() }}"><p></p>
 					       	@if(count($errors) > 0)
 					       		<div class="alert app-alert app-alert-danger">
@@ -75,15 +75,15 @@
 					        	{!!$errors->first('password','<span class="text-danger">:message</span>')!!}
 					       	</div>
 					       	@endif	        
-					        <button class="btn btn-primary btn-block login" ng-click="checkLogin()" type="submit">[[buttonText]]</button>
+					        <button class="btn btn-primary btn-block login" ng-click="checkLogin()" type="submit" ng-cloak>@{{buttonText}}</button>
 					    </form>
 					</div>
-				</div>        
+				</div> 
 			</div>
 		</div> 
 		<div class="app-footer">
 	       <center>
-	          <p>&copy; 2015 | All rights reserved. <a href="javascript:void(0)" class="app-terms hidden-xs">Privacy</a>  <a href="javascript:void(0)" class="app-policy hidden-xs">Terms</a> <a href="" class="app-policy hidden-xs">Security</a></p>
+	          <p>&copy; 2015 | All rights reserved. <!-- <a href="javascript:void(0)" class="app-terms hidden-xs">Privacy</a>  <a href="javascript:void(0)" class="app-policy hidden-xs">Terms</a> <a href="" class="app-policy hidden-xs">Security</a> --></p>
 	       </center>	             
 	  </div>
 	</div>
@@ -91,14 +91,7 @@
 	<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>	
 	<script type="text/javascript">
-	var app = angular.module('myApp', []);
-		app.config(['$interpolateProvider',
-			function($interpolateProvider){
-			$interpolateProvider.startSymbol('[[');
-			$interpolateProvider.endSymbol(']]');
-		}]);
-
-		app.controller('LoginFormController',function($scope){
+		angular.module('myApp', []).controller('LoginFormController',function($scope){
 		$scope.buttonText = 'Sign In';
 		$scope.checkLogin = function(){
 			$scope.buttonText = 'Signing In ...';

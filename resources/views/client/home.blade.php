@@ -5,14 +5,10 @@
 	<div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
 	@include('include.sidebar-list')
 	</div>
-	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" ng-controller="TestController">
-		<form class="form-horizontal app-form-horizontal" name="createForm" ng-submit="doPost(createForm, '{{url('/')}}')" novalidate>
+	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12">
+		<!-- <form class="form-horizontal app-form-horizontal" name="createForm" ng-submit="doPost(createForm, '{{url('/')}}')" novalidate>
 		  <fieldset>
-		  <button ng-click="fetchAll()">Get All</button>
-
-
-		  [[pullRequests]]
-		    <!-- <legend class="text-center legend-title"><i class="fa fa-user"></i> <b>Create New Client</b></legend> -->
+		    <legend class="text-center legend-title"><i class="fa fa-user"></i> <b>Create New Client</b></legend> -->
 		<!--     <div class="form-horizontal-inner">
 			    <div class="row">
 					<div class="col-md-12">
@@ -61,9 +57,9 @@
 			        <span ng-if="running" class="running-state">@include('include.svg-dot')</span>
 			      </div>
 			    </div>
-		    </div> -->
+		    </div> 
 		  </fieldset>
-		</form>
+		</form>-->
 	</div>
 	</div>
 </div>

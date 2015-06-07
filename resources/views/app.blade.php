@@ -4,13 +4,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{csrf_token()}}" />
 	<title>Lifecare</title>
 
 	<link href="{{asset('/css/crulean.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 	<link rel="stylesheet" href="{{url('css/fontawesome.min.css')}}">
-	<script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
+	<link rel="stylesheet" type="text/css" href="{{url('css/toaster.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url('css/chosen.css')}}">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -60,13 +61,22 @@
 		</div> 
 		<div class="app-footer">
 	       <center>
-	          <p>&copy; 2015 | All rights reserved. <a href="javascript:void(0)" class="app-terms hidden-xs">Privacy</a>  <a href="javascript:void(0)" class="app-policy hidden-xs">Terms</a> <a href="" class="app-policy hidden-xs">Security</a></p>
+	          <p>&copy; 2015 | All rights reserved. <!-- <a href="javascript:void(0)" class="app-terms hidden-xs">Privacy</a>  <a href="javascript:void(0)" class="app-policy hidden-xs">Terms</a> <a href="" class="app-policy hidden-xs">Security</a> --></p>
+			<input type="hidden" id="_url" value="{{url('/')}}">
+			<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>	          
 	       </center>	             
 	  </div>
 	</div>
-		<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/app.js')}}"></script>
-	<script type="text/javascript" src="{{url('js/services.js')}}"></script>
+<script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/chosen.js')}}"></script>
+<script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/angular-route.min.js')}}"></script>
+<script type="text/javascript" src="{{url('js/angular-animate.min.js')}}" ></script>
+<script type="text/javascript" src="{{url('js/angular-file-upload.js')}}"></script>
+<script type="text/javascript" src="{{url('js/toaster.js')}}"></script>
+<script type="text/javascript" src="{{url('js/app.js')}}"></script>
+<script type="text/javascript" src="{{url('js/services.js')}}"></script>
 	@yield('script')
 </body>
 </html>
