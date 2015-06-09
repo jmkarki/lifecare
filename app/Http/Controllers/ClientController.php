@@ -28,11 +28,9 @@ class ClientController extends Controller {
 
 	public function getShow(Request $request)
 	{
-		$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->with(['reports' => function($q){
-			$q->orderBy('id','desc')->paginate(2);
-		}])->whereId($request->get('key'))->first();
-
-		return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client]);
+		$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId($request->get('key'))->first();
+		$reports = $client->reports()->simplePaginate(5);
+		return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client, 'reports' => $reports]);
 	}
 
 	public function getCreate()

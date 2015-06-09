@@ -47,7 +47,7 @@
     <div class="files-heading-title">
       <h4>Attached Files</h4>
     </div>    
-      @forelse($client['reports'] as $each)
+      @forelse($reports as $each)
       <div class="repo-list-items">
         <div class="repo-list-stats">
              <button class="btn btn-danger btn-sm">
@@ -70,6 +70,8 @@
       @empty
         <p class="no-reports">No Reports</p>
       @endforelse
+
+      {!!$reports->appends(['key' => $client->id])->render()!!}
     </div> 
     <div class="attach-from none">
       <div class="files-heading-title">
@@ -83,16 +85,14 @@
           <p></p>
           <div class="row">
             <div class="col-lg-2 col-md-3 col-xs-3 col-sm-3">
-            <!-- <label class="hidden-xs hidden-sm"><b>Choose File</b></label> -->
             <div class="choose-file-wrap">
                 <span>Choose a File</span>
                 <input type="file" name="files[]" class="each-file" required>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
-              <!-- <label><b>File Name</b></label> -->
             </div>
-            <div class="col-lg-5 col-md-3 col-xs-3 col-sm-3">
+            <div class="col-lg-4 col-md-3 col-xs-3 col-sm-3">
               <input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>
             </div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1">
@@ -107,7 +107,7 @@
                 <span ng-if="loading" class="running-now">@include('include.svg-dot')</span>
                 <button type="button" class="btn btn-sm btn-default show-list" ng-disabled="loading">Cancel</button>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">&nbsp;&nbsp;
+            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">&nbsp;
               <input type="hidden" value="{{$client->id}}" name="client_id">
 
               <button class="btn btn-primary btn-sm" type="submit" ng-disabled="loading"> <span class="glyphicon glyphicon-link"></span> @{{btn}}</button>
