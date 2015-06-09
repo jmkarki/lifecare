@@ -96,7 +96,7 @@
 			    </div>
 			    <div class="form-group">
 			      <div class="col-lg-9 col-lg-offset-3">
-			        <button type="reset" class="btn btn-default">Cancel</button>
+			        <button type="reset" class="btn btn-default" ng-click="doReset()">Cancel</button>
 			        <button type="submit" class="btn btn-primary" ng-disabled="running">@{{btn}}</button>
 			        <span ng-if="running" class="running-state">@include('include.svg-dot')</span>
 			      </div>

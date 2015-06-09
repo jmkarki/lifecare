@@ -93,6 +93,11 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 			$scope.isOld = false;
 			$scope.btn = 'Create';
 		}
+		$scope.doReset = function(){
+			if($scope.client.exists == 1){
+				clear();
+			}
+		}
 
 		$scope.selectEach = function(i){
 			$scope.client = $scope.peoples[i];

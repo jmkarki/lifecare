@@ -119,6 +119,8 @@ textarea.ng-cloak {
 @media (min-width: 768px){
 	.navbar {
 	   border-radius: 0px !important;
+	   /*height: 90px;*/
+	   /*padding-top: 20px;*/
 	}	
 }
 .list-group-item:first-child {
@@ -440,4 +442,495 @@ hr {
 	left: -23px;
 	top: 5px;
 	min-width: 20px !important;
+}
+html {
+    font-size: 62.5% !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+body {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.42857 !important;
+    color: #727f88 !important;
+    background-color: #fff !important;
+}
+
+@-webkit-keyframes slideIn {
+    0% {
+        -webkit-transform: translateX(50px);
+        transform: translateX(50px);
+        opacity: 0
+    }
+    70% {
+        opacity: 1
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+@keyframes slideIn {
+    0% {
+        -webkit-transform: translateX(50px);
+        transform: translateX(50px);
+        opacity: 0
+    }
+    70% {
+        opacity: 1
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+}
+@-webkit-keyframes secHalfFadeIn {
+    0%, 50% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+@keyframes secHalfFadeIn {
+    0%, 50% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+output,
+.form-control {
+    display: block;
+    font-size: 12px;
+    line-height: 1.42857;
+    color: #465a63
+}
+.form-control {
+    width: 100%;
+    height: 25px;
+    padding: 15px 9px;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #BABCBE;
+    border-radius: 13px;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    box-shadow: none
+}
+.form-control:focus {
+    border-color: #00a4e5;
+    outline: 0;
+    box-shadow: 0 0 8px rgba(0, 164, 229, .6)
+}
+.form-control::-moz-placeholder {
+    color: #727f88;
+    opacity: 1
+}
+.form-control:-ms-input-placeholder {
+    color: #727f88
+}
+.form-control::-webkit-input-placeholder {
+    color: #727f88
+}
+.list-group {
+    margin-bottom: 20px;
+    padding-left: 0
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #00a4e5;
+    border: 1px solid #00a4e5;
+    color: #fff !important;
+}
+.list-group-item a{
+	color: #fff !important;
+}
+.selected-option{
+	background-color: #1B8DCF;
+	border-bottom: 2px solid #178ACC;
+}
+.logo-content{
+	height: 95px;
+	position: absolute;
+	top: -2px;
+	background-color: #FFF;
+	border-bottom: 5px #00A4E5 solid;
+}
+.text-danger {
+  color: #FF664E !important;
+}
+.show-paginator-count{
+	position: absolute;
+	right: 12px;
+}
+ul, menu, dir {
+	display: block;
+	list-style-type: disc;
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0px;
+	-moz-margin-before: 0em;
+	-moz-margin-after: 0em;
+	-moz-margin-start: 0px;
+	-moz-margin-end: 0px;
+	-moz-padding-start: 0px;
+	-ms-margin-before: 0em;
+	-ms-margin-after: 0em;
+	-ms-margin-start: 0px;
+	-ms-margin-end: 0px;
+	-ms-padding-start: 0px;
+	-o-margin-before: 0em;
+	-o-margin-after: 0em;
+	-o-margin-start: 0px;
+	-o-margin-end: 0px;
+	-o-padding-start: 0px;
+}
+.repo-list-item {
+  position: relative;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  list-style: none;
+  border-bottom: 1px solid #eee;
+}
+.repo-list-item:hover{
+	background-color: #FCFCFC;
+}
+.repo-list-item a{
+	color: #4078c0 !important;	
+}
+.user-leaderboard-list .repo-list-item {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 21px;
+    border-top: 0;
+    border-bottom: 1px solid #dfdfdf !important;
+}
+.user-leaderboard-list .repo-list-item .repo-description,
+.user-leaderboard-list .repo-list-item .repo-and-owner {
+    max-width: 530px
+}
+.user-leaderboard-list .repo-list-item .repo {
+    color: #5c5c5c
+}
+.user-repos .mini-repo-list-item {
+    padding-right: 6px
+}
+.user-repos .mini-repo-list-item .repo-and-owner {
+    max-width: 100%
+}
+.user-repos .mini-repo-list-item .owner {
+    max-width: 145px
+}
+.repo-list-stats {
+	margin-top: 6px;
+	float: right;
+	font-size: 12px;
+	 /*font-weight: bold; */
+	color: #96888F;
+}
+.repo-list-stats .repo-list-stat-item {
+    margin-left: 8px;
+    display: inline-block;
+    color: #888;
+    text-decoration: none
+}
+.repo-list-stats .repo-list-stat-item:hover {
+    color: #4078c0
+}
+.repo-list-stats .repo-list-stat-item>.octicon {
+    font-size: 14px
+}
+.repo-list-stats .repo-list-stat-item {
+    margin-left: 8px;
+    display: inline-block;
+    color: #888;
+    text-decoration: none
+}
+.repo-list-stats .repo-list-stat-item:hover {
+    color: #4078c0
+}
+.repo-list-stats .repo-list-stat-item>.octicon {
+    font-size: 14px
+}
+.fullscreen-overlay-enabled.dark-theme .tooltipped:after {
+    color: #000;
+    background: rgba(255, 255, 255, 0.8)
+}
+.fullscreen-overlay-enabled.dark-theme .tooltipped .tooltipped-s:before,
+.fullscreen-overlay-enabled.dark-theme .tooltipped .tooltipped-se:before,
+.fullscreen-overlay-enabled.dark-theme .tooltipped .tooltipped-sw:before {
+    border-bottom-color: rgba(255, 255, 255, 0.8)
+}
+.fullscreen-overlay-enabled.dark-theme .tooltipped.tooltipped-n:before,
+.fullscreen-overlay-enabled.dark-theme .tooltipped.tooltipped-ne:before,
+.fullscreen-overlay-enabled.dark-theme .tooltipped.tooltipped-nw:before {
+    border-top-color: rgba(255, 255, 255, 0.8)
+}
+.fullscreen-overlay-enabled.dark-theme .tooltipped.tooltipped-e:before {
+    border-right-color: rgba(255, 255, 255, 0.8)
+}
+.fullscreen-overlay-enabled.dark-theme .tooltipped.tooltipped-w:before {
+    border-left-color: rgba(255, 255, 255, 0.8)
+}
+.repo-list-name {
+  margin: 0 0 8px;
+   font-size: 18px; 
+  line-height: 1.2;
+}
+.codesearch-results .repo-list-name {
+    font-weight: normal
+}
+.codesearch-results .repo-list-name a,
+.codesearch-results .code-list .title a {
+    word-wrap: break-word
+}
+.codesearch-results .repo-list-name em,
+.codesearch-results .repo-list-description em {
+    padding: 3px;
+    font-style: normal;
+    font-weight: bold;
+    background-color: rgba(255, 255, 140, 0.5);
+    border-radius: 3px
+}
+.repo-list-info {
+    display: inline-block;
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    color: #888;
+    vertical-align: middle
+}
+.repo-list-info .octicon {
+    margin-top: -3px;
+    font-size: 12px;
+    vertical-align: middle
+}
+
+.repo-list-description {
+    max-width: 550px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #666
+}
+.repo-list-meta {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #888
+}
+.repo-list-meta .avatar {
+    margin-top: -2px
+}
+.repo-list-meta a:hover {
+    text-decoration: none
+}
+.repo-list .participation-graph {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1
+}
+.repo-list .participation-graph.disabled {
+    display: none
+}
+.repo-list .participation-graph .bars {
+    position: absolute;
+    bottom: 0
+}
+.org-repos .blankslate,
+.org-team-main .blankslate {
+    margin-top: 15px
+}
+.org-repos-mini {
+    padding: 0;
+    margin: 0
+}
+.org-repos-mini .org-repo-mini-item:first-child .org-repo-mini-cell {
+    border-top: 0
+}
+.org-repos-mini .org-repo-icon {
+    vertical-align: middle
+}
+.org-repos-mini .org-repo-name {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    word-wrap: break-word
+}
+.org-repos-mini .org-repo-name .octicon-repo {
+    color: #767676
+}
+.org-repos-mini .org-repo-name .octicon-lock {
+    color: #e9dba5
+}
+.org-repos-mini .org-repo-name .repo-prefix {
+    font-weight: normal;
+    text-transform: lowercase
+}
+.org-repos-mini .org-repo-name .repo-slash {
+    display: inline-block;
+    margin-left: -4px;
+    margin-right: -4px
+}
+.org-repos-mini .org-repo-forked {
+    max-width: 270px;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-block;
+    font-weight: normal;
+    font-size: 12px
+}
+.org-main {
+    float: left;
+    width: 100%;
+}
+.pager .disabled>a, .pager 
+.disabled>a:hover, .pager 
+.disabled>a:focus, .pager .disabled>span {
+  color: #999999;
+  background-color: #ffffff;
+   cursor:default !important;
+}
+.pager li>a:hover, .pager li>a:focus {
+  text-decoration: none;
+  background-color: #31A5E7 !important;
+  color: #fff !important;
+}
+.form-control-feedback {
+  position: absolute;
+  top: -3px;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  pointer-events: none;
+}
+.customer-first-item{
+	padding-bottom: 0px !important;
+}
+.search-client{
+	border-radius: 100px !important;
+}
+.org-header {
+    margin-bottom: 20px;
+    color: #666;
+    border-bottom: 1px solid #eee;
+    background-color: #fcfcfc
+}
+.org-header .edit-org {
+    position: relative;
+    top: -6px;
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 14px;
+    color: #aaa;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px
+}
+.org-header .edit-org:hover {
+    color: #4078c0;
+    background-color: #fff
+}
+.org-header .edit-org .octicon {
+    font-size: 14px
+}
+.org-header-wrapper {
+    display: table;
+    width: 680px;
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+.org-header-wrapper .avatar {
+    display: table-cell;
+    width: 100px;
+    height: 100px
+}
+.org-header-info {
+    display: table-cell;
+    vertical-align: middle;
+    width: 560px
+}
+.org-name {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 23px;
+    font-weight: normal
+}
+.org-description {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.25
+}
+.org-header-meta {
+    font-size: 12px;
+    line-height: 1.5;
+    list-style: none
+}
+.org-header-meta .meta-item {
+    display: inline-block;
+    padding-right: 18px;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.org-header-meta .meta-item .meta-link {
+    color: #666
+}
+.org-header-meta .octicon {
+    position: relative;
+    top: 1px;
+    margin-right: 2px;
+    color: #ccc
+}
+.org-header-meta.has-email.has-blog .meta-item,
+.org-header-meta.has-email.has-location .meta-item,
+.org-header-meta.has-blog.has-email .org-header-meta.has-blog.has-location .meta-item,
+.org-header-meta.has-location.has-blog .meta-item,
+.org-header-meta.has-location.has-email .meta-item {
+    max-width: 278px
+}
+.org-header-meta.has-email.has-blog.has-location .meta-item {
+    max-width: 186px
+}
+.org-link {
+    color: #333
+}
+.org-link:hover {
+    color: #4078c0;
+    text-decoration: none
+}
+.files-heading-title{
+	border-bottom: 1px solid #dfdfdf;
+}
+.repo-list-items {
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  list-style: none;
+  border-bottom: 1px solid #eee;
+}
+.repo-list-items a{
+	color: #4078c0 !important;	
+}
+.show-attach{
+	font-weight: bold !important;
+}
+.no-reports{
+	padding: 20px 0px;
+	opacity: 0.6;
 }
