@@ -196,101 +196,24 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 		  $scope.files.splice(idx,1);
 		}
 	})
-	.controller('showEachControllers', function($scope){
-
-		$scope.showModal = false;
-	    $scope.displayModal = function()
-	    {
-	    	$scope.showModal = !$scope.showModal;
-	    }
-	   	
-	   	$scope.resetModal = function()
-	    {
-			$scope.showModal = false;
-	    }
-
-	    $scope.files = [];
-		$scope.$on('fileSelected', function(event, args){
-			$scope.$apply(function(){
-				$scope.files.push(args.file);
-				$scope.nofiles = false;				
-			});
-		});
-
-		$scope.fileSize = function(size)
-		{
-			if (isNaN(parseFloat(size)) || !isFinite(size)) return '-';
-			if (typeof precision === 'undefined') precision = 1;
-			var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'],
-				number = Math.floor(Math.log(size) / Math.log(1024));
-			return (size / Math.pow(1024, Math.floor(number))).toFixed(precision) +  ' ' + units[number];
-		}
-
-		$scope.removeFile = function(i)
-		{
-		  var idx = $scope.files.indexOf(i);
-		  $scope.files.splice(idx,1);
-		}
-	})
-	.controller('showEachController', function($scope){
+	.controller('showEachController', function($scope, RemoteService, $window){
 		$scope.btn = 'Attach Files';
 		$scope.doLoad = function(attachForm){
 			$scope.loading = true;		
 			$scope.btn = 'Attaching ...';		
 		}
-	})
-	.directive('fileUpload', function(){
-		return {
-			scope: true,
-			link: function(scope, el, attrs){
-				el.bind('change',function(event){
-					var files = event.target.files;
-					for (var i = 0; i < files.length; i++){
-						scope.$emit('fileSelected',{file: files[i] });
-					};
-				});
+
+		$scope.removeFile = function(i)
+		{
+		  if(!i) return;
+		  $scope.removing = true;
+		  RemoteService.post('client/trashfile',{
+		  	'id' : i
+		  }).then(function(resp){
+			if(resp.status == 200 && resp.statusText == 'OK'){
+				RemoteService.toast(resp);
+				$window.location.reload();
 			}
+		  });
 		}
-	})
-	.directive('modal', function (){
-		return {
-		  template: '<div class="modal fade">' + 
-		      '<div class="modal-dialog modal-lg iapp-modal-dialog">' + 
-		        '<div class="modal-content iapp-modal-content">' + 
-		          '<div class="modal-header iapp-model-header">' + 
-		            '<button type="button" class="iapp-modal-close close" data-dismiss="modal" aria-hidden="true" ng-click="resetModal()">&times;</button>' + 
-		            '<h4 class="modal-title">{{ title }}</h4>' + 
-		          '</div>' + 
-		          '<div class="modal-body iapp-modal-body" ng-transclude></div>' + 
-		        '</div>' + 
-		      '</div>' + 
-		    '</div>',
-		  restrict: 'E',
-		  transclude: true,
-		  replace:true,
-		  scope:true,
-		  link: function postLink(scope, element, attrs) {
-		    scope.title = attrs.title;
-
-		    scope.$watch(attrs.visible, function(value){
-		      if(value == true)
-		        $(element).modal('show');
-
-		      else
-		        $(element).modal('hide');
-		    });
-
-		    $(element).on('shown.bs.modal', function(){
-		      scope.$apply(function(){
-		        scope.$parent[attrs.visible] = true;
-		      });
-		    });
-
-		    $(element).on('hidden.bs.modal', function(){
-		      scope.$apply(function(){
-		        scope.$parent[attrs.visible] = false;
-		      });
-		    });
-		  }
-		};
 	});

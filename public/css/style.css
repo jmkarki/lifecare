@@ -549,8 +549,9 @@ output,
 	color: #fff !important;
 }
 .selected-option{
-	background-color: #1B8DCF;
-	border-bottom: 2px solid #178ACC;
+	/*background-color: #1B8DCF;
+	border-bottom: 2px solid #178ACC;*/
+	border-right: 4px solid #178ACC !important;
 }
 .logo-content{
 	height: 95px;
@@ -598,7 +599,7 @@ ul, menu, dir {
   border-bottom: 1px solid #eee;
 }
 .repo-list-item:hover{
-	background-color: #FCFCFC;
+	background-color: transparent;
 }
 .repo-list-item a{
 	color: #4078c0 !important;	
@@ -933,4 +934,26 @@ ul, menu, dir {
 .no-reports{
 	padding: 20px 0px;
 	opacity: 0.6;
+}
+.app-custom-graph{
+	margin-top: -100px;
+	z-index: -69 !important;
+	position: absolute;
+}
+.attach-before{
+	padding-left: 7px;
+}
+@media(min-width: 320px) and (max-width:767px){
+	.org-header-meta .meta-item {
+	  display: list-item;
+	}
+}
+.remove-file-section{
+	position: relative !important;
+}
+.remove-running{
+	position: absolute;
+	left: -35px;
+	top: 0px;
+	min-width: 20px !important;
 }

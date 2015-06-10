@@ -29,7 +29,7 @@ class ClientController extends Controller {
 	public function getShow(Request $request)
 	{
 		$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId($request->get('key'))->first();
-		$reports = $client->reports()->simplePaginate(5);
+		$reports = $client->reports()->orderBy('id','desc')->simplePaginate(5);
 		return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client, 'reports' => $reports]);
 	}
 
@@ -134,5 +134,22 @@ class ClientController extends Controller {
 			return redirect('/client/show?key='.$request->get('client_id'));
 		}
 		return ['message' => 'Forbidden Request', 'status' => 403]; 
+	}
+
+	public function postTrashfile(Request $request)
+	{
+		if(\Request::ajax())
+		{
+			if($request->has('id'))
+			{
+				$report = Report::find($request->get('id'));
+				if(!empty($report))
+				{
+					$report->forceDelete();
+					return ['statusText' => 'OK','status' => 200, 'message' => 'File removed successfully ...'];
+				}
+			}
+		}
+		return ['message' => 'Forbidden Request', 'status' => 403];
 	}
 }

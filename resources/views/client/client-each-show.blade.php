@@ -2,10 +2,10 @@
 @section('content')
 <div class="container">
   <div class="row">
-  <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+  <div class="col-md-3 col-lg-3">
     @include('include.sidebar-list')
   </div>
-  <div class="col-md-9 col-lg-9 col-xs-12 col-sm-12" ng-controller="showEachController" ng-cloak>
+  <div class="col-md-9 col-lg-9" ng-controller="showEachController" ng-cloak>
   <header class="org-header">
     <div class="container">
       <div class="org-header-wrapper">
@@ -48,34 +48,219 @@
       <h4>Attached Files</h4>
     </div>    
       @forelse($reports as $each)
-      <div class="repo-list-items">
-        <div class="repo-list-stats">
-             <button class="btn btn-danger btn-sm">
-                  <span class="glyphicon glyphicon-remove-circle"></span>
-                </button>
+        <div class="repo-list-item public source">
+          <div class="repo-list-stats remove-file-section">
+            <span ng-if="removing" class="remove-running">@include('include.svg-dot')</span>
+            <button class="btn btn-danger btn-sm" ng-disabled="removing" ng-click="removeFile({{$each->id}})">
+              <span class="glyphicon glyphicon-remove-circle"></span>
+            </button>
+          </div>
+          <h3 class="repo-list-name">
+            <a href="#">{{$each->file_name}}</a>
+          </h3>
+            <p class="repo-list-description">
+              <small><span class="glyphicon glyphicon-link"></span></small> {{App\Date::ago($each->updated_at)}}
+              &nbsp;<small><span class="glyphicon glyphicon-file"></span></small>
+              Size - {{App\Date::size($each->file_size)}}
+            </p>
+            <div class="participation-graph app-custom-graph">
+              <svg class="bars" width="640" height="100">
+                <g transform="translate(0.0, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(12.31, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(24.62, 0)">
+                  <rect width="11.31" height="4.0" y="96.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(49.24, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(61.55, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(73.86, 0)">
+                  <rect width="11.31" height="10.0" y="90.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(98.48, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(110.79, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(123.1, 0)">
+                  <rect width="11.31" height="22.0" y="78.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(135.41, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(147.72, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(160.03, 0)">
+                  <rect width="11.31" height="6.0" y="94.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(172.34, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(184.65, 0)">
+                  <rect width="11.31" height="7.0" y="93.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(209.27, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(221.58, 0)">
+                  <rect width="11.31" height="15.0" y="85.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(233.89, 0)">
+                  <rect width="11.31" height="18.0" y="82.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(246.2, 0)">
+                  <rect width="11.31" height="26.0" y="74.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(258.51, 0)">
+                  <rect width="11.31" height="8.0" y="92.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(270.82, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(283.13, 0)">
+                  <rect width="11.31" height="6.0" y="94.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(295.44, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(307.75, 0)">
+                  <rect width="11.31" height="9.0" y="91.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(332.37, 0)">
+                  <rect width="11.31" height="7.0" y="93.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(344.68, 0)">
+                  <rect width="11.31" height="15.0" y="85.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(356.99, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(369.3, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(393.92, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(406.23, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(418.54, 0)">
+                  <rect width="11.31" height="6.0" y="94.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(430.85, 0)">
+                  <rect width="11.31" height="8.0" y="92.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(443.16, 0)">
+                  <rect width="11.31" height="13.0" y="87.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(455.47, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(467.78, 0)">
+                  <rect width="11.31" height="4.0" y="96.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(480.09, 0)">
+                  <rect width="11.31" height="47.0" y="53.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(492.4, 0)">
+                  <rect width="11.31" height="13.0" y="87.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(504.71, 0)">
+                  <rect width="11.31" height="8.0" y="92.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(517.02, 0)">
+                  <rect width="11.31" height="9.0" y="91.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(529.33, 0)">
+                  <rect width="11.31" height="2.0" y="98.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(553.95, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(566.26, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(578.57, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(590.88, 0)">
+                  <rect width="11.31" height="1.0" y="99.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(603.19, 0)">
+                  <rect width="11.31" height="5.0" y="95.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(615.5, 0)">
+                  <rect width="11.31" height="3.0" y="97.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+                <g transform="translate(627.81, 0)">
+                  <rect width="11.31" height="37.0" y="63.0" fill="#f8f8f8"></rect>
+                  <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
+                </g>
+              </svg>
+            </div>
         </div>
-        <h3 class="repo-list-name">
-          <a href="#">
-           {{$each->file_name}}</a>
-        </h3>
-          <p class="repo-list-description">
-            <small><span class="glyphicon glyphicon-link"></span></small> {{App\Date::ago($each->updated_at)}}
-          </p>
-        <p class="repo-list-meta">
-            <small><span class="glyphicon glyphicon-file"></span></small>
-            Size - {{round(($each->file_size/1024)/1024, 2)}} MB
-        </p>
-       
-      </div>
       @empty
         <p class="no-reports">No Reports</p>
       @endforelse
-
+      <p></p>
       {!!$reports->appends(['key' => $client->id])->render()!!}
     </div> 
     <div class="attach-from none">
       <div class="files-heading-title">
-        <h4>Attached Files</h4>
+        <h4>Attach Other Files</h4>
       </div> 
       <p></p>
       <form name="attachForm" method="POST" action="{{url('/client/attach')}}" ng-submit="doLoad(attachForm)" accept-charset="utf-8" enctype="multipart/form-data">
@@ -91,8 +276,9 @@
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+              <span class="text-muted">File name</span>
             </div>
-            <div class="col-lg-4 col-md-3 col-xs-3 col-sm-3">
+            <div class="col-lg-5 col-md-4 col-xs-3 col-sm-3">
               <input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>
             </div>
             <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1">
@@ -102,15 +288,15 @@
           </div>
           <p></p>
           <div class="row">
-            <div class="col-md-9 col-lg-9 col-sm-10 col-xs-10"></div>
+            <div class="col-md-9 col-lg-9 col-sm-8 col-xs-8"></div>
             <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
                 <span ng-if="loading" class="running-now">@include('include.svg-dot')</span>
                 <button type="button" class="btn btn-sm btn-default show-list" ng-disabled="loading">Cancel</button>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">&nbsp;
+            <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
               <input type="hidden" value="{{$client->id}}" name="client_id">
 
-              <button class="btn btn-primary btn-sm" type="submit" ng-disabled="loading"> <span class="glyphicon glyphicon-link"></span> @{{btn}}</button>
+              <button class="btn btn-primary btn-sm" type="submit" ng-disabled="loading"> <span class="attach-before"><span class="glyphicon glyphicon-link"></span> @{{btn}}</span></button>
               
             </div>
           </div>
@@ -134,7 +320,7 @@
             '</div>'+
           '</div>'+
           '<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">'+
-            
+            '<span class="text-muted">File name</span>'+
           '</div>'+
           '<div class="col-lg-5 col-md-3 col-xs-3 col-sm-3">'+
             '<input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>'+
@@ -150,7 +336,6 @@
 
      $('.attach-report-container').on('change','.each-file' ,function(e){      
       var name = e.target.files[0].name;
-      console.log(e.target.files[0].size);  
       var length = name.length;
       if(length > 30)
       {
