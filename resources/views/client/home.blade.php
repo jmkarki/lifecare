@@ -2,10 +2,10 @@
 @section('content')
 <div class="container">
 	<div class="row">
-	<div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
-	@include('include.sidebar-list')
+	<!-- <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+	
 	</div>
-	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12">
+	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12"> -->
 		<!-- <form class="form-horizontal app-form-horizontal" name="createForm" ng-submit="doPost(createForm, '{{url('/')}}')" novalidate>
 		  <fieldset>
 		    <legend class="text-center legend-title"><i class="fa fa-user"></i> <b>Create New Client</b></legend> -->
@@ -64,3 +64,5 @@
 	</div>
 </div>
 @endsection
+
+

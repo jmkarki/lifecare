@@ -1,4 +1,5 @@
 <?php 
+
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -11,13 +12,7 @@ use App\Client;
 use App\Report;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-
-
-// 200 Everything is good
-// 401 Unauthenticated request
-// 403 Forbidden request
-// 404 Page not found
-// 500 Server error
+use Vinkla\Hashids\Facades\Hashids;
 
 class ClientController extends Controller {
 
@@ -85,7 +80,7 @@ class ClientController extends Controller {
 
 	public function getView()
 	{
-		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->orderBy('id','desc')->simplePaginate(10);
+		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->with(['reports'])->orderBy('id','desc')->simplePaginate(10);
 		return View::make('client.view')->with(['url'=>'client/view', 'clients' => $clients]);
 	}
 

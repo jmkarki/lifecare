@@ -1,30 +1,32 @@
 @extends('app')
 @section('content')
-<div class="container">
+<div class="container container-centered">
 	<div class="row">
-	<div class="col-md-3 col-lg-3 col-sm-3 col-xs-12">
-	@include('include.sidebar-list')
-	</div>
-	<div class="col-md-9 col-lg-9 col-xs-12 col-sm-12">
+	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
   <div class="org-main">
     <div class="org-repos repo-list">
       <div class="repo-list-item customer-first-item">
-      <div class="row">
-        <div class="col-md-4 col-md-offset-8">
-          <div class="form-group has-feedback">
-              <input type="search" class="form-control search-client" placeholder="Type name and press enter ...">
-              <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+        <div class="row">
+          <div class="col-md-6 heading-col">
+            <span class="heading-collection"><i class="fa fa-users"></i> Collections</span>
           </div>
-        </div>
-      </div>
-        
+          <div class="col-md-6">
+            <div class="form-group has-feedback">
+                <input type="search" class="form-control search-client" placeholder="Type name and press enter, Updates in real time ...">
+                <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>        
       </div>
     @foreach($clients as $each)
       <div class="repo-list-item public source">
         <div class="repo-list-stats">
-            <span class="hidden-xs">
-             Updated {{App\Date::ago($each->updated_at)}}
+            <span class="hidden-xs">             
+            <p><small><span class="glyphicon glyphicon-file"></span></small> Reports {{count($each['reports'])}}</p>
             </span>
+            <span class="hidden-xs">
+             <p><small><i class="fa fa-cloud"></i></small> {{App\Date::ago($each->updated_at)}}</p>
+            </span>            
         </div>
         <h3 class="repo-list-name">
           <a href="{{url('/client/show?key='.$each->id)}}">
@@ -226,9 +228,8 @@
             <rect width="11.31" height="5.0" y="95.0" fill="#f8f8f8"></rect>
             <rect width="11.31" height="0.0" y="100.0" fill="#dedede"></rect>
           </g>
-    </svg>
-
-    </div>
+          </svg>
+        </div>
       </div>
       @endforeach
     </div>

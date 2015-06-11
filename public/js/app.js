@@ -11,7 +11,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 	.config(function($httpProvider){
 		$httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 	})
-	.controller('createController', function($scope, $http, $timeout, $window, $element, RemoteService, AttachService)
+	.controller('CreateController', function($scope, $http, $timeout, $window, $element, RemoteService, AttachService)
 	{
 		$scope.has = false;
 		$scope.match = true;
@@ -202,13 +202,13 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 			$scope.loading = true;		
 			$scope.btn = 'Attaching ...';		
 		}
-
-		$scope.removeFile = function(i)
+		$scope.reports = [{}];
+		$scope.removeFile = function(id, index)
 		{
-		  if(!i) return;
-		  $scope.removing = true;
+		  if(!id) return;
+		  $scope.reports[index].removing = true;
 		  RemoteService.post('client/trashfile',{
-		  	'id' : i
+		  	'id' : id
 		  }).then(function(resp){
 			if(resp.status == 200 && resp.statusText == 'OK'){
 				RemoteService.toast(resp);

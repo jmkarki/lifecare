@@ -25,8 +25,8 @@
 </head>
 <body>
 	<div class="wrapper">
-		<nav class="navbar navbar-default">
-			<div class="container clearfix">
+		<nav class="navbar navbar-default app-nabbar-default">
+			<div class="container clearfix container-centered">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="navbar-header">
@@ -36,24 +36,31 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<!-- <a class="navbar-brand visible-xs visible-sm visible-xs visible-sm" href="#">Lifecare</a> -->
-					<a class="navbar-brand" href="#">Lifecare</a>
-					<!-- <img src="{{url('image/lifecare final logo.png')}}" class="logo-content hidden-sm hidden-xs"> -->
+					<a class="navbar-brand" href="#">Life<b style="font-size: 25px;">care</b></a>
 				</div>				
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<!-- <ul class="nav navbar-nav">
-						<li><a href="{{ url('/') }}">Home</a></li>
-					</ul> -->
+				<div class="collapse navbar-collapse app-navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="{{ url('/') }}"><b>Home</b></a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><b> Usage</b><span class="caret"></span></a>
+							<ul class="dropdown-menu app-dropdown" role="menu">
+								<div class="triangle-up"></div>
+								<li><a href="{{ url('/client/create') }}">Create New</a></li>
+								<li class="divider app-divider"></li>
+								<li><a href="{{ url('/client/view') }}">Show All</a></li>
+							</ul>
+						</li>
+					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 							<li><a href="{{ url('/auth/login') }}">Login</a></li>
-							<!-- <li><a href="{{ url('/auth/register') }}">Register</a></li> -->
 						@else
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
+								<ul class="dropdown-menu app-dropdown" role="menu">
+									<div class="triangle-up"></div>
 									<li><a href="{{ url('/client/account') }}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-									<li class="divider"></li>
+									<li class="divider app-divider"></li>
 									<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 								</ul>
 							</li>

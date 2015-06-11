@@ -144,7 +144,8 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider'
+		'Illuminate\Html\HtmlServiceProvider',
+		'Vinkla\Hashids\HashidsServiceProvider'
 
 	],
 
@@ -195,6 +196,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'  => 'Illuminate\Html\FormFacade',
 		'HTML'  => 'Illuminate\Html\HtmlFacade',
+		'Hashids' => 'Vinkla\Hashids\Facades\Hashids'
 
 	],
 

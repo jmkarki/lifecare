@@ -1,13 +1,10 @@
 @extends('app')
 @section('content')
-<div class="container">
-  <div class="row">
-  <div class="col-md-3 col-lg-3">
-    @include('include.sidebar-list')
-  </div>
-  <div class="col-md-9 col-lg-9" ng-controller="showEachController" ng-cloak>
+<div class="container container-centered">
+  <div class="row"> 
+  <div class="col-md-12 col-lg-12" ng-controller="showEachController" ng-cloak>
   <header class="org-header">
-    <div class="container">
+    <div class="org-container">
       <div class="org-header-wrapper">
         <div class="org-header-info">
           <h1 class="org-name">
@@ -47,17 +44,18 @@
     <div class="files-heading-title">
       <h4>Attached Files</h4>
     </div>    
-      @forelse($reports as $each)
+      @forelse($reports as $index => $each)
         <div class="repo-list-item public source">
           <div class="repo-list-stats remove-file-section">
-            <span ng-if="removing" class="remove-running">@include('include.svg-dot')</span>
-            <button class="btn btn-danger btn-sm" ng-disabled="removing" ng-click="removeFile({{$each->id}})">
+            <span ng-if="reports[{{$index}}].removing" class="remove-running">@include('include.svg-dot')</span>
+            <button class="btn btn-orange btn-sm" ng-disabled="removing" ng-click="removeFile({{$each->id}},{{$index}})">
               <span class="glyphicon glyphicon-remove-circle"></span>
             </button>
           </div>
           <h3 class="repo-list-name">
             <a href="#">{{$each->file_name}}</a>
           </h3>
+            <span ng-init="reports[{{$index}}].removing=false"></span>
             <p class="repo-list-description">
               <small><span class="glyphicon glyphicon-link"></span></small> {{App\Date::ago($each->updated_at)}}
               &nbsp;<small><span class="glyphicon glyphicon-file"></span></small>
@@ -265,39 +263,36 @@
       <p></p>
       <form name="attachForm" method="POST" action="{{url('/client/attach')}}" ng-submit="doLoad(attachForm)" accept-charset="utf-8" enctype="multipart/form-data">
           <input type="hidden" name="_token" value="{{csrf_token()}}">
-          <div class="attach-report-container">
-        
+          <div class="attach-report-container">        
           <p></p>
           <div class="row">
-            <div class="col-lg-2 col-md-3 col-xs-3 col-sm-3">
+            <div class="col-lg-2 col-md-3 col-xs-12 col-sm-12">
             <div class="choose-file-wrap">
-                <span>Choose a File</span>
+                <span class="file-label">Choose a File</span>
                 <input type="file" name="files[]" class="each-file" required>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">
               <span class="text-muted">File name</span>
             </div>
-            <div class="col-lg-5 col-md-4 col-xs-3 col-sm-3">
+            <div class="col-lg-5 col-md-4 col-xs-12 col-sm-6">
               <input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>
             </div>
-            <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1">
+            <div class="col-lg-1 col-md-1 col-xs-12 col-sm-12">
               <button class="btn btn-primary btn-sm more-file" ng-disabled="loading"><span class="glyphicon glyphicon-plus-sign"></span></button>
             </div>
           </div>
           </div>
           <p></p>
           <div class="row">
-            <div class="col-md-9 col-lg-9 col-sm-8 col-xs-8"></div>
-            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+            <div class="col-md-9 col-lg-9 col-sm-8 col-xs-12"></div>
+            <div class="col-md-1 col-lg-1 col-sm-1 col-xs-12">
                 <span ng-if="loading" class="running-now">@include('include.svg-dot')</span>
                 <button type="button" class="btn btn-sm btn-default show-list" ng-disabled="loading">Cancel</button>
             </div>
-            <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
+            <div class="col-md-2 col-lg-2 col-sm-3 col-xs-12">
               <input type="hidden" value="{{$client->id}}" name="client_id">
-
-              <button class="btn btn-primary btn-sm" type="submit" ng-disabled="loading"> <span class="attach-before"><span class="glyphicon glyphicon-link"></span> @{{btn}}</span></button>
-              
+              <button class="btn btn-primary btn-sm" type="submit" ng-disabled="loading"> <span class="attach-before"><span class="glyphicon glyphicon-link"></span> @{{btn}}</span></button>              
             </div>
           </div>
           <p></p>
@@ -312,26 +307,25 @@
   $(document).ready(function(){
     $('.more-file').on('click', function(){
       var html = '<hr><div class="row">'+
-          '<div class="col-lg-2 col-md-3 col-xs-3 col-sm-3">'+
-          
+          '<div class="col-lg-2 col-md-3 col-xs-12 col-sm-12">'+          
           '<div class="choose-file-wrap">'+
-              '<span>Choose a File</span>'+
+              '<span class="file-label">Choose a File</span>'+
               '<input type="file" name="files[]" class="each-file" required>'+
             '</div>'+
           '</div>'+
-          '<div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">'+
+          '<div class="col-lg-4 col-md-4 col-xs-12 col-sm-12">'+
             '<span class="text-muted">File name</span>'+
           '</div>'+
-          '<div class="col-lg-5 col-md-3 col-xs-3 col-sm-3">'+
+          '<div class="col-lg-5 col-md-4 col-xs-12 col-sm-6">'+
             '<input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>'+
           '</div>'+
-          '<div class="col-lg-1 col-md-1 col-xs-1 col-sm-1">'+
-            '<button type="button" class="btn btn-danger btn-sm remove-file" ng-disabled="loading"><span class="glyphicon glyphicon-remove-circle"></span></button>'+
+          '<div class="col-lg-1 col-md-1 col-xs-12 col-sm-12">'+
+            '<button type="button" class="btn btn-orange btn-sm remove-file" ng-disabled="loading"><span class="glyphicon glyphicon-remove-circle"></span></button>'+
           '</div>'+
         '</div>';
 
         $('.attach-report-container').append(html);
-      return false;
+        return false;
     });
 
      $('.attach-report-container').on('change','.each-file' ,function(e){      
