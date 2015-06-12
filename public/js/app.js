@@ -218,7 +218,11 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 		$scope.peoples = [{}];
 		$scope.showFeed = function(name){
 			if(!name){
-				// $('.searched-result').fadeOut();
+				$('.searched-result').fadeOut();
+				clear();
+			}
+			if(name == null){
+				$('.searched-result').fadeOut();
 				clear();
 			}
 			if(name){
@@ -227,7 +231,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 					var text = {"name" : name};					
 					AttachService.search(text).then(function(resp, status){
 						if(resp == null){
-							// $('.searched-result').fadeOut();
+							$('.searched-result').fadeOut();
 							clear();
 						}
 						if(resp != null){
@@ -239,7 +243,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 				},300);	
 			}
 			$element.on('focusout', function(){
-				// $('.searched-result').fadeOut();
+				$('.searched-result').fadeOut();
 			});
 		};
 	});

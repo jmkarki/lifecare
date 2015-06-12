@@ -24,7 +24,9 @@ class ClientController extends Controller {
 
 	public function getShow(Request $request)
 	{
-		if($request->has('key') && !empty(Hashids::decode($request->get('key'))))			
+		$id = Hashids::decode($request->get('key'));
+		
+		if($request->has('key') && !empty($id))			
 		{
 			$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId(Hashids::decode($request->get('key')))->first();
 			if(!empty($client))	
@@ -83,7 +85,7 @@ class ClientController extends Controller {
 
 	public function getView()
 	{
-		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->with(['reports'])->orderBy('id','desc')->simplePaginate(10);
+		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->orderBy('id','desc')->simplePaginate(10);
 		return View::make('client.view')->with(['url'=>'client/view', 'clients' => $clients]);
 	}
 

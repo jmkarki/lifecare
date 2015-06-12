@@ -17,6 +17,7 @@
                 <div ng-class="{'searched-result': available}" ng-show="available" ng-cloak>
                   <div class="search-found">
                     <span ng-if="peoples.length > 0">Found results for "@{{search.query}}"</span>
+                        <span ng-show="!peoples.length > 0">No match found for "@{{search.query}}"</span>
                   </div>
                   <ul id="results" data-ng-repeat="people in peoples">
                     <li class="result">
@@ -39,7 +40,7 @@
       <div class="repo-list-item public source">
         <div class="repo-list-stats">
             <span class="hidden-xs">             
-            <p><small><span class="glyphicon glyphicon-file"></span></small> Reports {{count($each['reports'])}}</p>
+            <p><small><span class="glyphicon glyphicon-file"></span></small> Reports {{$each->reports->count()}}</p>
             </span>
             <span class="hidden-xs">
              <p><small><i class="fa fa-cloud"></i></small> {{App\Date::ago($each->updated_at)}}</p>
