@@ -254,7 +254,7 @@
         <p class="no-reports">No Reports</p>
       @endforelse
       <p></p>
-      {!!$reports->appends(['key' => $client->id])->render()!!}
+      {!!$reports->appends(['key' => Vinkla\Hashids\Facades\Hashids::encode($client->id)])->render()!!}
     </div> 
     <div class="attach-from none">
       <div class="files-heading-title">

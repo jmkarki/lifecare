@@ -8,6 +8,7 @@ use App\Http\Requests\CreateNew;
 use View;
 use App\Role;
 use Auth;
+use Hash;
 use App\Client;
 use App\Report;
 use Carbon\Carbon;
@@ -23,9 +24,17 @@ class ClientController extends Controller {
 
 	public function getShow(Request $request)
 	{
-		$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId($request->get('key'))->first();
-		$reports = $client->reports()->orderBy('id','desc')->simplePaginate(5);
-		return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client, 'reports' => $reports]);
+		if($request->has('key') && !empty(Hashids::decode($request->get('key'))))			
+		{
+			$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId(Hashids::decode($request->get('key')))->first();
+			if(!empty($client))	
+			{
+				$reports = $client->reports()->orderBy('id','desc')->simplePaginate(5);
+				return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client, 'reports' => $reports]);	
+			}
+			abort(404);
+		}
+		abort(404);		
 	}
 
 	public function getCreate()
@@ -35,34 +44,34 @@ class ClientController extends Controller {
 
 	public function postCreate(CreateNew $request, Client $client)
 	{	
-		if(\Request::ajax())
+		if($request->ajax())
 		{
 			try
 			{
-				if($request->has('id') && $request->get('exists') == 1 && $request->get('id') > 0)
+				if($request->has('id') && $request->get('exists') == 1 && Hashids::decode($request->get('id')) > 0)
 				{
-					$client = $client->find($request->get('id'));
+					$client = $client->whereId(Hashids::decode($request->get('id')))->first();
 					$client->name = $request->get('name');
 					$client->email = $request->get('email');
 					$client->full_address = $request->get('full_address');
 					$client->phone = $request->get('phone');
 					$client->phone_home = $request->get('phone_home');
 					$client->update();
-					return ['status' => 200, 'message' => 'Updated Successfully !', 'id' => $client->id];
+					return ['status' => 200, 'message' => 'Updated Successfully !', 'id' => Hashids::encode($client->id)];
 					
 				}else if($request->get('exists') == 0)
 				{
 					$client->name = $request->get('name');
 					$client->role_id = 100;
-					$client->company_id = \Auth::user()->company_id;
-					$client->password = \Hash::make($request->get('password'));
+					$client->company_id = Auth::user()->company_id;
+					$client->password = Hash::make($request->get('password'));
 					$client->email = $request->get('email');
 					$client->full_address = $request->get('full_address');
 					$client->phone = $request->get('phone');
 					$client->phone_home = $request->get('phone_home');
 					$client->save();
 
-					return ['status' => 200, 'message' => 'Client Created Successfully !', 'id' => $client->id];
+					return ['status' => 200, 'message' => 'Client Created Successfully !', 'id' => Hashids::encode($client->id)];
 				}				
 			}
 			catch(Exception $e)
@@ -72,12 +81,6 @@ class ClientController extends Controller {
 		}
 	}
 
-	// public function getAttach()
-	// {
-	// 	$clients = Client::select('id','name','full_address')->get();
-	// 	return View::make('client.attach')->with(['url'=>'client/attach','clients' => $clients]);
-	// }
-
 	public function getView()
 	{
 		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->with(['reports'])->orderBy('id','desc')->simplePaginate(10);
@@ -86,7 +89,7 @@ class ClientController extends Controller {
 
 	public function postCheck(Request $request)
 	{
-		if(\Request::ajax() && $request->has('email'))
+		if($request->ajax() && $request->has('email'))
 		{
 			$data = Client::whereEmail($request->get('email'))->first();
 		}
@@ -99,12 +102,18 @@ class ClientController extends Controller {
 
 	public function postAvailable(Request $request)
 	{
-		if(\Request::ajax())
+		if($request->ajax())
 		{
 			$customers = Client::select('id','name','email','full_address','phone','phone_home')
 								->where('name', 'LIKE', '%'.$request->get('name').'%')
 								->company()->orderBy('name','asc')
 								->get();
+			if(!empty($customers))
+			{
+				foreach ($customers as $each){
+					$each->id = Hashids::encode($each->id);
+				}
+			}
 			
 			return new JsonResponse($customers, 200);
 		}
@@ -114,7 +123,9 @@ class ClientController extends Controller {
 	{
 		if($request->has('client_id'))
 		{
-			foreach ($request->file('files') as $key => $each) {					
+			foreach ($request->file('files') as $key => $each){	
+				if(empty($each)) abort(404);				
+				
 				$report = new Report;
 				$report->client_id = $request->get('client_id');
 				$report->report_file = base64_encode(file_get_contents($each->getRealPath()));
@@ -126,14 +137,14 @@ class ClientController extends Controller {
 				$report->lab_num = $request->get('labno')[$key];
 				$report->save();					
 			}
-			return redirect('/client/show?key='.$request->get('client_id'));
+			return redirect('/client/show?key='.Hashids::encode($request->get('client_id')));
 		}
 		return ['message' => 'Forbidden Request', 'status' => 403]; 
 	}
 
 	public function postTrashfile(Request $request)
 	{
-		if(\Request::ajax())
+		if($request->ajax())
 		{
 			if($request->has('id'))
 			{
@@ -141,7 +152,7 @@ class ClientController extends Controller {
 				if(!empty($report))
 				{
 					$report->forceDelete();
-					return ['statusText' => 'OK','status' => 200, 'message' => 'File removed successfully ...'];
+					return ['statusText' => 'OK','status' => 200, 'message' => 'File Removed Successfully.'];
 				}
 			}
 		}

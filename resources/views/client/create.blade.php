@@ -26,10 +26,14 @@
 			    </div>
 				<div class="form-group">
 					<label for="inputName" class="col-lg-3 control-label">Name <span class="text-danger">*</span></label>
-					<div class="col-lg-9">
+					<div class="col-lg-8">
 					  <div class="customer-name-wrap">
 					    <input type="text" ng-minlength ="1" class="form-control" ng-change="showFeed(client.name)" ng-model="client.name" placeholder="Name" required autocomplete="off">
 					    <div ng-class="{'searched-result': available}" ng-show="available">
+						  <div class="search-found">
+		                    <span ng-if="peoples.length > 0">Found results for "@{{client.name}}"</span>
+		                    <span ng-show="!peoples.length > 0">No match found for "@{{client.name}}"</span>
+		                  </div>
 						  <ul id="results" data-ng-repeat="people in peoples">
 						    <li class="result">
 						      <a class="each-result" ng-click="selectEach($index)">
@@ -50,20 +54,20 @@
 				<input type="hidden" ng-model="client.exists" ng-init="client.exists='0'">
 				<div class="form-group">
 				<label for="inputEmail" class="col-lg-3 control-label">Email <span class="text-danger">*</span></label>
-				<div class="col-lg-9">
+				<div class="col-lg-8">
 				  <input type="email" name="email" class="form-control" ng-change="confirmEmail(client.email)" ng-model="client.email" placeholder="Email" required unique>
 				<span ng-if="!unique" ng-class="{'app-text-danger': !unique}">@{{emailText}}</span>           
 				</div>
 				</div>
 			      <div class="form-group" ng-if="!isOld">
 			        <label for="inputPassword" class="col-lg-3 control-label">Password <span class="text-danger">*</span></label>
-			        <div class="col-lg-9">
+			        <div class="col-lg-8">
 			          <input type="password" class="form-control" ng-model="client.password" placeholder="Password" required>
 			        </div>
 			      </div>
 			      <div class="form-group" ng-if="!isOld">
 			        <label for="inputPassword" class="col-lg-3 control-label">Re-password <span class="text-danger">*</span></label>
-			        <div class="col-lg-9">
+			        <div class="col-lg-8">
 			          <input type="password" class="form-control" name="repassword" ng-change="check(client.repassword)" ng-model="client.repassword" placeholder="Confirm Password" required match>
 			          <span ng-if="match" class="help-block">Please remember the password you entered above ..</span>
 			          <span ng-if="!match" ng-class="{'app-text-danger': !match}">@{{donotmatch}}</span>
@@ -71,25 +75,25 @@
 			      </div>
 			      <div class="form-group">
 			        <label for="textArea" class="col-lg-3 control-label">Full Address <span class="text-danger">*</span></label>
-			        <div class="col-lg-9">
+			        <div class="col-lg-8">
 			          <textarea class="form-control" rows="3" ng-model="client.full_address" required></textarea>
 			          <span class="help-block">Please enter the client's full address above for our record to properly recognize if needed in future...</span>
 			        </div>
 			      </div>
 			    <div class="form-group">
 			        <label for="inputPhone" class="col-lg-3 control-label"><i class="fa fa-phone"></i> Phone (Home)</label>
-			        <div class="col-lg-9">
+			        <div class="col-lg-8">
 			          <input type="text" class="form-control" ng-model="client.phone_home" ng-pattern="/^0|[1-9][0-9]*$/" placeholder="Phone No (Home)">
 			        </div>
 			      </div>
 			    <div class="form-group">
 			        <label for="inputPhone" class="col-lg-3 control-label"><i class="fa fa-mobile-phone"></i> Phone (Cell) <span class="text-danger">*</span></label>
-			        <div class="col-lg-9">
+			        <div class="col-lg-8">
 			          <input type="text" class="form-control" ng-model="client.phone" ng-pattern="/^0|[1-9][0-9]*$/" placeholder="Phone No (Cell)" required>
 			        </div>
 			      </div>
 			      <div class="form-group">
-			        <div class="col-lg-9 col-lg-offset-3">
+			        <div class="col-lg-8 col-lg-offset-3">
 			          <button type="reset" class="btn btn-default" ng-click="doReset()">Cancel</button>
 			          <button type="submit" class="btn btn-primary" ng-disabled="running">@{{btn}}</button>
 			          <span ng-if="running" class="running-state">@include('include.svg-dot')</span>

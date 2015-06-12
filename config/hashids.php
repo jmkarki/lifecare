@@ -38,9 +38,9 @@ return [
     'connections' => [
 
         'main' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
-            'alphabet' => 'your-alphabet-string'
+            'salt' => 'gOjoXOnpDr431FublXfCnTnVKcLRwdo6QbAZhgmY',
+            'length' => '8',
+            'alphabet' => 'q5ckTkRPmkXM6URQq1S8nvmSTH7qMoAoQ3T8bXg0'
         ],
 
         'alternative' => [

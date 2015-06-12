@@ -1,19 +1,36 @@
 @extends('app')
 @section('content')
-<div class="container container-centered">
+<div class="container container-centered" ng-controller="ViewAllController">
 	<div class="row">
 	<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
   <div class="org-main">
     <div class="org-repos repo-list">
       <div class="repo-list-item customer-first-item">
         <div class="row">
-          <div class="col-md-6 heading-col">
+          <div class="col-md-6 heading-column-text">
             <span class="heading-collection"><i class="fa fa-users"></i> Collections</span>
           </div>
           <div class="col-md-6">
             <div class="form-group has-feedback">
-                <input type="search" class="form-control search-client" placeholder="Type name and press enter, Updates in real time ...">
+                <input type="search" class="form-control search-client" ng-model="search.query" ng-change="showFeed(search.query)" placeholder="Type name and press enter, Updates in real time ...">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                <div ng-class="{'searched-result': available}" ng-show="available" ng-cloak>
+                  <div class="search-found">
+                    <span ng-if="peoples.length > 0">Found results for "@{{search.query}}"</span>
+                  </div>
+                  <ul id="results" data-ng-repeat="people in peoples">
+                    <li class="result">
+                      <a class="each-result" ng-click="selectEach($index)" href="{{url('client/show?key=')}}@{{people.id}}">
+                        <h6>
+                          <i class="fa fa-user"></i> &nbsp;
+                          <span class="customer-name">@{{people.name}}</span>
+                          <span class="glyphicon glyphicon-map-marker"></span> 
+                          <span class="searched-address">@{{people.full_address}}</span> 
+                        </h6>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
             </div>
           </div>
         </div>        
@@ -29,7 +46,7 @@
             </span>            
         </div>
         <h3 class="repo-list-name">
-          <a href="{{url('/client/show?key='.$each->id)}}">
+          <a href="{{url('/client/show?key='.Vinkla\Hashids\Facades\Hashids::encode($each->id))}}">
            {{$each->name}}</a>
         </h3>
           <p class="repo-list-description">

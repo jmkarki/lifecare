@@ -11,9 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 	<link rel="stylesheet" href="{{url('css/fontawesome.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('css/toaster.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{url('css/chosen.css')}}">
-	<!-- <link rel="stylesheet" type="text/css" href="{{url('css/github.css')}}"> -->
-	<!-- <link rel="stylesheet" type="text/css" href="{{url('css/github1.css')}}"> -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -58,7 +55,7 @@
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 								<ul class="dropdown-menu app-dropdown" role="menu">
-									<div class="triangle-up"></div>
+									<div class="triangle-up triangle-up-right"></div>
 									<li><a href="{{ url('/client/account') }}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
 									<li class="divider app-divider"></li>
 									<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -87,7 +84,6 @@
 	</div>
 <script type="text/javascript" src="{{url('js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{url('js/chosen.js')}}"></script>
 <script type="text/javascript" src="{{url('js/angular.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/angular-route.min.js')}}"></script>
 <script type="text/javascript" src="{{url('js/angular-animate.min.js')}}" ></script>

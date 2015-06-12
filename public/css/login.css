@@ -1,8 +1,8 @@
 .login-container{
   position: relative;
-  width: 301px;
+  width: 320px;
   margin: 10px auto;
-  padding: 55px 32px 75px;
+  padding: 25px 32px 75px;
   text-align: center;
   background: #F1F7FA;
   box-shadow: 0px 0px 3px 3px #DDDADA;
@@ -127,12 +127,12 @@ hr{
   animation-name: fadeInUp;
 }
 .avatar {
-  width: 75px;
-  height: 75px;
-  margin: 5px auto 25px;
+  width: 125px;
+  height: 125px;
+  margin: 5px auto 35px;
   border-radius: 100%;
   border: 2px solid #9CC2FC;
-  background-image: url(../image/user.png);
+  background-image: url(../image/lifecare-final-logo.png);
   background-size: cover;
 }
 html, body {
