@@ -1,8 +1,11 @@
-<?php namespace App\Http\Requests;
+<?php 
+
+namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-
-class LoginRequest extends Request {
+use Auth;
+use App\User;
+class ClientLogin extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +14,7 @@ class LoginRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +25,9 @@ class LoginRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
+			'email' => 'required|email',
+			'password' => 'required',
+			'user_id' => 'required',
 		];
 	}
 

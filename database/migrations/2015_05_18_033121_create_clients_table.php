@@ -16,7 +16,6 @@ class CreateClientsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('company_id');
-			$table->integer('role_id');
 			$table->string('name');
 			$table->string('username');
 			$table->string('password');

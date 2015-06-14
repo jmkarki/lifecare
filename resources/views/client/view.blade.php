@@ -21,9 +21,9 @@
                   </div>
                   <ul id="results" data-ng-repeat="people in peoples">
                     <li class="result">
-                      <a class="each-result" ng-click="selectEach($index)" href="{{url('client/show?key=')}}@{{people.id}}">
+                      <a class="each-result" href="{{url('client/show?key=')}}@{{people.id}}">
                         <h6>
-                          <i class="fa fa-user"></i> &nbsp;
+                          <i class="fa fa-user"></i>
                           <span class="customer-name">@{{people.name}}</span>
                           <span class="glyphicon glyphicon-map-marker"></span> 
                           <span class="searched-address">@{{people.full_address}}</span> 

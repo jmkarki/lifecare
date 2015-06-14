@@ -14,15 +14,15 @@
 Route::get('/', 'Auth\AuthController@getLogin');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController'
+	'auth' => 'Auth\AuthController'
 ]);
 
 Route::group(['middleware' => 'auth'], function()
 {
 	Route::controllers([
 		'client' => 'ClientController',
+		'user' => 'UserController',
+		
 	]);
 	Route::get('/home', 'ClientController@index');
 });
-

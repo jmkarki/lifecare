@@ -219,20 +219,13 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 		$scope.showFeed = function(name){
 			if(!name){
 				$('.searched-result').fadeOut();
-				clear();
-			}
-			if(name == null){
-				$('.searched-result').fadeOut();
-				clear();
-			}
-			if(name){
+			}else if(name){
 				$timeout.cancel(typingTimer);
 				typingTimer = $timeout(function(){					
 					var text = {"name" : name};					
 					AttachService.search(text).then(function(resp, status){
 						if(resp == null){
 							$('.searched-result').fadeOut();
-							clear();
 						}
 						if(resp != null){
 							$scope.peoples = resp;

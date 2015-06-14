@@ -9,7 +9,7 @@ class Client extends Model {
 	use SoftDeletes;
     protected $dates = ['deleted_at'];
 	protected $table = 'clients';
-	protected $fillable = ['company_id','role_id','name','username','password','email','full_address','phone','phone_home','city','country'];
+	protected $fillable = ['company_id','name','email','full_address','phone','phone_home','city','country'];
 
 
 	public function scopeCompany($query)

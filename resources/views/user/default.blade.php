@@ -33,23 +33,9 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="{{url('/home')}}">Life<b style="font-size: 25px;">care</b></a>
+					<a class="navbar-brand" href="{{url('/user/home')}}">Life<b style="font-size: 25px;">care</b></a>
 				</div>				
 				<div class="collapse navbar-collapse app-navbar-collapse" id="bs-example-navbar-collapse-1">
-					@if(Auth::check())
-					<ul class="nav navbar-nav">
-						<li><a href="{{ url('/') }}"><b>Home</b></a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><b> Usage</b><span class="caret"></span></a>
-							<ul class="dropdown-menu app-dropdown" role="menu">
-								<div class="triangle-up"></div>
-								<li><a href="{{ url('/client/create') }}">Create New</a></li>
-								<li class="divider app-divider"></li>
-								<li><a href="{{ url('/client/view') }}">Show All</a></li>
-							</ul>
-						</li>
-					</ul>
-					@endif
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 							<li><a href="{{ url('/auth/login') }}">Login</a></li>
@@ -58,9 +44,9 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 								<ul class="dropdown-menu app-dropdown" role="menu">
 									<div class="triangle-up triangle-up-right"></div>
-									<li><a href="{{ url('/client/account') }}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+									<li><a href="{{ url('/user/account') }}"><span class="glyphicon glyphicon-user"></span> Account</a></li>
 									<li class="divider app-divider"></li>
-									<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+									<li><a href="{{ url('/user/logoff') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 								</ul>
 							</li>
 						@endif

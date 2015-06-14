@@ -1,11 +1,8 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\User;
-use App\Role;
-use Auth;
 
-class CreateNew extends Request {
+class MasterLogin extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -14,11 +11,7 @@ class CreateNew extends Request {
 	 */
 	public function authorize()
 	{
-		if(Auth::check() && Auth::user()->role_id == User::roleAdmin())
-		{
-			return true;		
-		}
-		return false;
+		return true;
 	}
 
 	/**
@@ -29,10 +22,8 @@ class CreateNew extends Request {
 	public function rules()
 	{
 		return [
-			'name' => 'required',
-			'full_address' => 'required',
-			'phone' => 'required',
-			'email' => 'required',
+			'email' => 'required|email',
+			'password' => 'required',
 		];
 	}
 

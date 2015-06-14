@@ -3,7 +3,12 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Http\Request;
+use App\Http\Requests\ClientLogin;
+use App\Http\Requests\MasterLogin;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\User;
+use Auth;
 
 class AuthController extends Controller {
 
@@ -36,8 +41,6 @@ class AuthController extends Controller {
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
-	//overridding the existing register developed by Taylor Otwell feels good
-
 	public function getRegister()
 	{
 		return redirect('/');
@@ -50,11 +53,35 @@ class AuthController extends Controller {
 
 	public function getLogin()
 	{
-		return view('auth.login');
+		return view('auth.login')->with(['error' =>session('error')]);
 	}
 
-	// public function postLogin()
-	// {
-	// 	return 'Sorry';
-	// }
+	public function getClient()
+	{
+		return view('auth.client-login')->with(['error' => session('error')]);
+	}
+
+	public function postClient(ClientLogin $request)
+	{
+		$field = filter_var($request->get('email'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+		$credentials = ['role_id' => User::roleBasic(),
+						$field => $request->get('email'),
+						'password' => $request->get('password'),
+						'client_id' => $request->get('user_id'),
+						];
+		if(Auth::validate($credentials))
+		{
+			if(Auth::attempt($credentials))
+			{
+				return redirect('user/home');
+			}
+		}		
+		else{
+			return redirect('auth/client')
+					->withInput()
+					->withError('The user id / email or password provided is incorrect.');
+		}
+		return redirect('auth/client')->withError('There was a problem signing you in.');
+	}
 }

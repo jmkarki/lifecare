@@ -5,21 +5,26 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateNew;
-use View;
 use App\Role;
 use Auth;
 use Hash;
+use App\User;
 use App\Client;
 use App\Report;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Vinkla\Hashids\Facades\Hashids;
 
-class ClientController extends Controller {
+class ClientController extends Controller 
+{
+	public function __construct()
+	{
+		$this->middleware('admin');
+	}
 
 	public function index()
 	{
-		return View::make('client.home')->with(['url' => 'home']);
+		return view('client.home');
 	}
 
 	public function getShow(Request $request)
@@ -28,11 +33,11 @@ class ClientController extends Controller {
 		
 		if($request->has('key') && !empty($id))			
 		{
-			$client = Client::select('id','company_id','role_id','name','username','email','full_address','phone','phone_home','updated_at')->whereId(Hashids::decode($request->get('key')))->first();
+			$client = Client::select('id','company_id','name','email','full_address','phone','phone_home','updated_at')->whereId($id)->first();
 			if(!empty($client))	
 			{
 				$reports = $client->reports()->orderBy('id','desc')->simplePaginate(5);
-				return View::make('client.client-each-show')->with(['url' => 'client/show', 'client' => $client, 'reports' => $reports]);	
+				return view('client.client-each-show')->with(['client' => $client, 'reports' => $reports]);	
 			}
 			abort(404);
 		}
@@ -41,10 +46,10 @@ class ClientController extends Controller {
 
 	public function getCreate()
 	{
-		return View::make('client.create')->with(['url'=>'client/create']);
+		return view('client.create');
 	}
 
-	public function postCreate(CreateNew $request, Client $client)
+	public function postCreate(CreateNew $request, Client $client, User $user)
 	{	
 		if($request->ajax())
 		{
@@ -64,14 +69,22 @@ class ClientController extends Controller {
 				}else if($request->get('exists') == 0)
 				{
 					$client->name = $request->get('name');
-					$client->role_id = 100;
 					$client->company_id = Auth::user()->company_id;
-					$client->password = Hash::make($request->get('password'));
 					$client->email = $request->get('email');
 					$client->full_address = $request->get('full_address');
 					$client->phone = $request->get('phone');
 					$client->phone_home = $request->get('phone_home');
 					$client->save();
+
+					$user->company_id = Auth::user()->company_id;
+					$user->client_id = $client->id;
+					$user->role_id = User::roleBasic();
+					$user->name = $request->get('name');
+					$user->username = $request->get('username');
+					$user->email = $request->get('email');
+					$user->password = Hash::make($request->get('password'));
+					$user->type = 0;
+					$user->save();
 
 					return ['status' => 200, 'message' => 'Client Created Successfully !', 'id' => Hashids::encode($client->id)];
 				}				
@@ -86,7 +99,7 @@ class ClientController extends Controller {
 	public function getView()
 	{
 		$clients = Client::select('id','name','email','full_address','phone_home','phone','updated_at')->orderBy('id','desc')->simplePaginate(10);
-		return View::make('client.view')->with(['url'=>'client/view', 'clients' => $clients]);
+		return view('client.view')->with(['clients' => $clients]);
 	}
 
 	public function postCheck(Request $request)
@@ -106,18 +119,24 @@ class ClientController extends Controller {
 	{
 		if($request->ajax())
 		{
-			$customers = Client::select('id','name','email','full_address','phone','phone_home')
-								->where('name', 'LIKE', '%'.$request->get('name').'%')
-								->company()->orderBy('name','asc')
-								->get();
-			if(!empty($customers))
+			if(!$request->has('name'))
 			{
-				foreach ($customers as $each){
-					$each->id = Hashids::encode($each->id);
+				return response(null, 200);
+			}else
+			{
+				$customers = Client::select('id','name','email','full_address','phone','phone_home')
+									->where('name', 'LIKE', '%'.$request->get('name').'%')
+									->company()->orderBy('name','asc')
+									->get();
+				if(!empty($customers))
+				{
+					foreach ($customers as $each){
+						$each->id = Hashids::encode($each->id);
+					}
 				}
-			}
-			
-			return new JsonResponse($customers, 200);
+				
+				return response($customers, 200);
+			}			
 		}
 	}
 
@@ -125,7 +144,8 @@ class ClientController extends Controller {
 	{
 		if($request->has('client_id'))
 		{
-			foreach ($request->file('files') as $key => $each){	
+			foreach ($request->file('files') as $key => $each)
+			{	
 				if(empty($each)) abort(404);				
 				
 				$report = new Report;
@@ -154,10 +174,16 @@ class ClientController extends Controller {
 				if(!empty($report))
 				{
 					$report->forceDelete();
+
 					return ['statusText' => 'OK','status' => 200, 'message' => 'File Removed Successfully.'];
 				}
 			}
 		}
 		return ['message' => 'Forbidden Request', 'status' => 403];
+	}
+
+	public function getAccount()
+	{
+		return 'Will be back soon admin!';
 	}
 }
