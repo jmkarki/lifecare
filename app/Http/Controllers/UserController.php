@@ -65,10 +65,10 @@ class UserController extends Controller {
 		                    ];
 
 
- 				$headers3 = ['Content-Description' => 'File Transfer',
-							  'Content-Type' => $report->mime, 
-							  'Content-Length' => $report->file_size,
-							  'Content-Disposition' => 'attachement; filename="'.basename($report->file_name)
+ 				$headers3 = ['Content-Description' 		=> 'File Transfer',
+							  'Content-Type' 			=> $report->mime, 
+							  'Content-Length' 			=> $report->file_size,
+							  'Content-Disposition' 	=> 'attachement; filename="'.basename($report->file_name)
 							  ];
 
 				$file = base64_decode($report->report_file);
