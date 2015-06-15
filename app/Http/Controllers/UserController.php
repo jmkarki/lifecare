@@ -47,10 +47,10 @@ class UserController extends Controller {
 
 			if(Auth::user()->client_id === $report->client_id)
 			{
-				$headers1 = ['Content-Type:'.$report->mime,
-							'Content-Description: File Transfer',
-							'Content-Disposition: attachement; filename="'.basename($report->file_name),
-							'Content-length' => $report->file_size
+				$headers1 = ['Content-Type' 			=> $report->mime,
+							'Content-Description' 		=> 'File Transfer',
+							'Content-Disposition' 		=> ' attachement; filename="'.basename($report->file_name),
+							'Content-Length' 			=>	 $report->file_size
 							];
 
  				$headers2 = ['Content-Description'       => 'File Transfer',
@@ -66,10 +66,11 @@ class UserController extends Controller {
 
 
  				$headers3 = ['Content-Description' => 'File Transfer',
-							  'Content-type' => $report->mime, 
-							  'Content-length' => $report->file_size,
-							  'Content-Disposition: attachement; filename="'.basename($report->file_name)
+							  'Content-Type' => $report->mime, 
+							  'Content-Length' => $report->file_size,
+							  'Content-Disposition' => 'attachement; filename="'.basename($report->file_name)
 							  ];
+
 				$file = base64_decode($report->report_file);
 				return response()->make($file, 200, $headers2);
 				
