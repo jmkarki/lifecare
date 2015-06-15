@@ -43,10 +43,17 @@
       @forelse($reports as $index => $each)
         <div class="repo-list-item public source">
           <div class="repo-list-stats remove-file-section">
+          {!!Form::open(['url' => '/user/file'])!!}
+            <input type="hidden" name="report_id" value="{{Vinkla\Hashids\Facades\Hashids::encode($each->id)}}">
             <span ng-if="reports[{{$index}}].removing" class="remove-running">@include('include.svg-dot')</span>
-            <a class="btn-link" href="{{url('/user/file/'.Vinkla\Hashids\Facades\Hashids::encode($each->id))}}"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+            <button type="submit" class="btn-link btn-download"><span class="glyphicon glyphicon-download-alt"></span> Download</button>
+          {!!Form::close()!!}            
           </div>
           <h3 class="repo-list-name">
+            <?php $new = Carbon\Carbon::now()->addWeek(); ?>
+            @if($each->updated_at <= $new)
+            <div class="new">NEW</div>
+            @endif
             <a href="#">{{$each->file_name}}</a>
           </h3>
             <span ng-init="reports[{{$index}}].removing=false"></span>

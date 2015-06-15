@@ -57,6 +57,10 @@
             </button>
           </div>
           <h3 class="repo-list-name">
+          <?php $new = Carbon\Carbon::now()->addWeek(); ?>
+            @if($each->updated_at <= $new)
+            <div class="new">NEW</div>
+            @endif
             <a href="#">{{$each->file_name}}</a>
           </h3>
             <span ng-init="reports[{{$index}}].removing=false"></span>
