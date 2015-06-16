@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'Auth\AuthController@getLogin');
+Route::get('/', 'Auth\AuthController@welcome');
+Route::get('/welcome','Auth\AuthController@welcome');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController'

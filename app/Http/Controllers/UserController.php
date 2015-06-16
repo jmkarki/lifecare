@@ -20,8 +20,8 @@ class UserController extends Controller {
 	{
 		$id = Auth::user()->client_id;
 		$client = Client::select('id','name','email','full_address','phone','phone_home','updated_at')->whereId($id)->first();
-			if(!empty($client))	
-			{
+		if(!empty($client))
+		{
 			$reports = $client->reports()->orderBy('id','desc')->simplePaginate(5);
 			return view('user.home')->with(['client' => $client, 'reports' => $reports]);
 		}
@@ -35,7 +35,7 @@ class UserController extends Controller {
 	public function getLogoff()
 	{
 		Auth::logout();
-		return redirect('/auth/client');	
+		return redirect('/welcome');	
 	}
 
 	public function postFile(Request $request)
@@ -45,7 +45,7 @@ class UserController extends Controller {
 		{
 			$report = Report::whereId($id)->first();
 
-			if(Auth::user()->client_id === $report->client_id)
+			if(auth()->user()->client_id === $report->client_id)
 			{
 				$headers1 = ['Content-Type' 			=> $report->mime,
 							'Content-Description' 		=> 'File Transfer',

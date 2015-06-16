@@ -54,7 +54,18 @@
             @if($each->updated_at <= $new)
             <div class="new">NEW</div>
             @endif
-            <a href="#">{{$each->file_name}}</a>
+            <?php 
+              $name = $each->file_name;
+              $length = strlen($each->file_name);
+
+              if($length > 30)
+              {
+                $name1 = substr($name, 0, 20);
+                $name2 = substr($name, $length-8, $length);
+                $name =  $name1.'...'.$name2;  
+              }
+             ?>
+            <a>{{$name}}</a>
           </h3>
             <span ng-init="reports[{{$index}}].removing=false"></span>
             <p class="repo-list-description">

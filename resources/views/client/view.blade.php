@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group has-feedback">
-                <input type="search" class="form-control search-client" ng-model="search.query" ng-change="showFeed(search.query)" placeholder="Type name and press enter, Updates in real time ...">
+                <input type="search" class="form-control search-client" ng-model="search.query" ng-change="showFeed(search.query)" placeholder="Start typing it suggests you, updates in real time ...">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 <div ng-class="{'searched-result': available}" ng-show="available" ng-cloak>
                   <div class="search-found">
@@ -23,7 +23,7 @@
                     <li class="result">
                       <a class="each-result" href="{{url('client/show?key=')}}@{{people.id}}">
                         <h6>
-                          <i class="fa fa-user"></i>
+                          <i class="fa fa-user search-user-icon"></i>
                           <span class="customer-name">@{{people.name}}</span>
                           <span class="glyphicon glyphicon-map-marker"></span> 
                           <span class="searched-address">@{{people.full_address}}</span> 

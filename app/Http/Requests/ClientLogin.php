@@ -31,4 +31,11 @@ class ClientLogin extends Request {
 		];
 	}
 
+	public function messages()
+	{
+		return [
+			'user_id.required' => 'The field secret key is required',
+		];
+	}
+
 }

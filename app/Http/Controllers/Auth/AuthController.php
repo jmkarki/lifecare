@@ -80,8 +80,13 @@ class AuthController extends Controller {
 		else{
 			return redirect('auth/client')
 					->withInput()
-					->withError('The user id / email or password provided is incorrect.');
+					->withError('The secret key, email or password provided is incorrect.');
 		}
 		return redirect('auth/client')->withError('There was a problem signing you in.');
+	}
+
+	public function welcome()
+	{
+		return view('auth.welcome');
 	}
 }

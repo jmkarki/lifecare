@@ -7,7 +7,7 @@
 	<meta name="csrf-token" content="{{csrf_token()}}" />
 	<title>Lifecare</title>
 
-	<link href="{{asset('/css/crulean.min.css') }}" rel="stylesheet">
+	<link href="{{asset('/css/normalize.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
 	<link rel="stylesheet" href="{{url('css/fontawesome.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('css/toaster.css')}}">
