@@ -17,7 +17,8 @@
 			text-align: center;
 			font-size: 22px;
 			text-transform: uppercase;
-			font-family: fantasy;
+			/*font-family: fantasy;*/
+			font-family: sans-serif;
 			font-size: 25px;
 		}
 		.btn-warning:hover, 
