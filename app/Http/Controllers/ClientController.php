@@ -13,7 +13,10 @@ use App\Client;
 use App\Report;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ClientController extends Controller 
 {
@@ -150,14 +153,20 @@ class ClientController extends Controller
 				
 				$report = new Report;
 				$report->client_id = $request->get('client_id');
-				$report->report_file = base64_encode(file_get_contents($each->getRealPath()));
-				$report->file_name = $each->getClientOriginalName();
+				// $report->report_file = base64_encode(file_get_contents($each->getRealPath()));
+				$filename = rand(0, 9999999999).'_'.strtotime(Carbon::now()).'_'.mt_rand(0,99999).'.'.$each->getClientOriginalExtension();
+				$report->file_name = $filename;
 				$report->file_size = $each->getSize();
 				$report->file_ext = $each->getClientOriginalExtension();
+				$ext = $each->getClientOriginalExtension();
+				$report->original_filename = $each->getFilename().'.'.$ext;
+
+				Storage::disk('local')->put($each->getFilename().'.'.$ext,  File::get($each));
+				
 				$report->mime = $each->getMimeType();
 				$report->downloaded = 0;
 				$report->lab_num = $request->get('labno')[$key];
-				$report->save();					
+				$report->save();
 			}
 			return redirect('/client/show?key='.Hashids::encode($request->get('client_id')));
 		}
@@ -174,8 +183,10 @@ class ClientController extends Controller
 				if(!empty($report))
 				{
 					$report->forceDelete();
+					Storage::delete($report->original_filename);
 
-					return ['statusText' => 'OK','status' => 200, 'message' => 'File Removed Successfully.'];
+					return ['statusText' => 'OK','status' => 200, 
+							'message' => 'File Removed Successfully.'];
 				}
 			}
 		}
@@ -185,5 +196,21 @@ class ClientController extends Controller
 	public function getAccount()
 	{
 		return 'Will be back soon admin!';
+	}
+
+	public function getViewfile($id = null)
+	{
+		$id = Hashids::decode($id);
+		$admin = User::roleAdmin();
+
+		if($admin == auth()->user()->role_id && $id)
+		{
+			$report = Report::whereId($id)->first();
+			$file = Storage::disk('local')->get($report->original_filename);
+ 
+			return (new Response($file, 200))
+              		->header('Content-Type', $report->mime);
+		}
+		abort(404);
 	}
 }

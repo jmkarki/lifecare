@@ -966,8 +966,17 @@ ul, menu, dir {
 	background-color: #ffffff;
 	border-color: rgba(0,0,0,0.1);
 }
-.btn-orange:hover{
+.btn-remove{
+  color: #FCFCFC;
+  background-color: #FF6C12;
+  border-color: rgba(255, 108, 18, 1);
+  border-bottom: 2px solid #DF5C0B;
+}
+.btn-remove:hover,
+.btn-remove:focus,
+.btn-remove:active{
 	color: #fff;
+  outline: none;
 	background-color: #F36B24;
 }
 .app-dropdown{

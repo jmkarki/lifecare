@@ -8,7 +8,7 @@
       <div class="repo-list-item customer-first-item">
         <div class="row">
           <div class="col-md-6 heading-column-text">
-            <span class="heading-collection"><i class="fa fa-users"></i> Collections</span>
+            <span class="heading-collection"><i class="fa fa-users"></i> Customers</span>
           </div>
           <div class="col-md-6">
             <div class="form-group has-feedback">

@@ -52,7 +52,7 @@
         <div class="repo-list-item public source">
           <div class="repo-list-stats remove-file-section">
             <span ng-if="reports[{{$index}}].removing" class="remove-running">@include('include.svg-dot')</span>
-            <button class="btn btn-orange btn-sm" ng-disabled="removing" ng-click="removeFile({{$each->id}},{{$index}})">
+            <button class="btn btn-remove btn-sm" ng-disabled="removing" ng-click="removeFile({{$each->id}},{{$index}})">
               <span class="glyphicon glyphicon-remove-circle"></span>
             </button>
           </div>
@@ -72,7 +72,7 @@
                 $name =  $name1.'...'.$name2;  
               }
              ?>
-            <a>{{$name}}</a>
+            <a href="{{url('/client/viewfile/'.Vinkla\Hashids\Facades\Hashids::encode($each->id))}}" target="_blank">{{$name}}</a>
           </h3>
             <span ng-init="reports[{{$index}}].removing=false"></span>
             <p class="repo-list-description">
@@ -339,7 +339,7 @@
             '<input type="text" class="form-control" placeholder="Lab No" name="labno[]" required>'+
           '</div>'+
           '<div class="col-lg-1 col-md-1 col-xs-12 col-sm-12">'+
-            '<button type="button" class="btn btn-orange btn-sm remove-file" ng-disabled="loading"><span class="glyphicon glyphicon-remove-circle"></span></button>'+
+            '<button type="button" class="btn btn-remove btn-sm remove-file" ng-disabled="loading"><span class="glyphicon glyphicon-remove-circle"></span></button>'+
           '</div>'+
         '</div>';
 
