@@ -1,16 +1,17 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Auth;
-use App\Client;
 use App\User;
-use Vinkla\Hashids\Facades\Hashids;
+use App\Client;
 use App\Report;
-use Illuminate\Http\Response;
+use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller {
 
@@ -74,7 +75,7 @@ class UserController extends Controller {
 	public function getFile($id = null)
 	{
 		$id = Hashids::decode($id);
-		if($id)
+		if($id > 0)
 		{
 			$report = Report::whereId($id)->first();
 
@@ -83,7 +84,8 @@ class UserController extends Controller {
 				$file = Storage::disk('local')->get($report->original_filename);
  
 				return (new Response($file, 200))
-              			->header('Content-Type', $report->mime);				
+              			->header('Content-Type', $report->mime)
+              			->header('Content-Length' , $report->file_size);
 			}
 		}
 	}

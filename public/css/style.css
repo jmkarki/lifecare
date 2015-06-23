@@ -927,7 +927,7 @@ ul, menu, dir {
 @media(min-width: 950px){
 	.container-centered{
 		width: 940px !important;
-    zoom:110%;
+    /*zoom:110%;*/
 	}	
 }
 .remove-file-section{

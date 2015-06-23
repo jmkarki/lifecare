@@ -11,18 +11,21 @@
 |
 */
 
-Route::get('/', 'Auth\AuthController@welcome');
+Route::get('/', 'WelcomeController@index');
+
 Route::get('/welcome','Auth\AuthController@welcome');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController'
+	'auth' 			=> 'Auth\AuthController',
+	'contact' 		=> 'ContactController',
+	'blog' 			=> 'BlogController'	,
 ]);
 
 Route::group(['middleware' => 'auth'], function()
 {
 	Route::controllers([
 		'client' => 'ClientController',
-		'user' => 'UserController',
+		'user' => 'UserController'
 		
 	]);
 	Route::get('/home', 'ClientController@index');

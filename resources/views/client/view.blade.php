@@ -21,7 +21,7 @@
                   </div>
                   <ul id="results" data-ng-repeat="people in peoples">
                     <li class="result">
-                      <a class="each-result" href="{{url('client/show?key=')}}@{{people.id}}">
+                      <a class="each-result" href="{{url('client/fetch?origin=')}}@{{people.id}}">
                         <h6>
                           <i class="fa fa-user search-user-icon"></i>
                           <span class="customer-name">@{{people.name}}</span>
@@ -43,11 +43,11 @@
             <p><small><span class="glyphicon glyphicon-file"></span></small> Reports {{$each->reports->count()}}</p>
             </span>
             <span class="hidden-xs">
-             <p><small><i class="fa fa-cloud"></i></small> {{App\Date::ago($each->updated_at)}}</p>
+             <p><small><i class="fa fa-cloud"></i></small> {{$each->updated_at->diffForHumans()}}</p>
             </span>            
         </div>
         <h3 class="repo-list-name">
-          <a href="{{url('/client/show?key='.Vinkla\Hashids\Facades\Hashids::encode($each->id))}}">
+          <a href="{{url('/client/fetch?origin='.Vinkla\Hashids\Facades\Hashids::encode($each->id))}}">
            {{$each->name}}</a>
         </h3>
           <p class="repo-list-description">

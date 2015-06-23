@@ -26,7 +26,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 						if(response.status == 200){
 							RemoteService.toast(response);
 							$timeout(function(){
-								$window.location.href = _url + 'client/show?key='+response.id;
+								$window.location.href = _url + 'client/fetch?origin='+response.id;
 							}, 1000);							
 						}
 				});
@@ -174,7 +174,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster'])
 		        .success(function(data, status, headers, config){
 					if(data.status == 200){
 						RemoteService.toast(data);
-						$window.location.href = _url + 'client/show?key='+data.id;
+						$window.location.href = _url + 'client/fetch?origin='+data.id;
 					}
 
 				}).error(function(data, status, headers, config){

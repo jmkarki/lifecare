@@ -1,17 +1,15 @@
-<?php 
-
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
+use Auth;
+use Hash;
+use App\User;
+use App\Role;
+use App\Client;
+use App\Report;
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateNew;
-use App\Role;
-use Auth;
-use Hash;
-use App\User;
-use App\Client;
-use App\Report;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Vinkla\Hashids\Facades\Hashids;
@@ -30,11 +28,11 @@ class ClientController extends Controller
 		return view('client.home');
 	}
 
-	public function getShow(Request $request)
+	public function getFetch(Request $request)
 	{
-		$id = Hashids::decode($request->get('key'));
+		$id = Hashids::decode($request->get('origin'));
 		
-		if($request->has('key') && !empty($id))			
+		if($request->has('origin') && !empty($id))			
 		{
 			$client = Client::select('id','company_id','name','email','full_address','phone','phone_home','updated_at')->whereId($id)->first();
 			if(!empty($client))	
@@ -153,12 +151,13 @@ class ClientController extends Controller
 				
 				$report = new Report;
 				$report->client_id = $request->get('client_id');
+				$ext = $each->getClientOriginalExtension();
 				// $report->report_file = base64_encode(file_get_contents($each->getRealPath()));
-				$filename = rand(0, 9999999999).'_'.strtotime(Carbon::now()).'_'.mt_rand(0,99999).'.'.$each->getClientOriginalExtension();
+				$filename = rand(0, 9999999999).'_'.strtotime(Carbon::now()).'_'.mt_rand(0,99999).'.'.$ext;
 				$report->file_name = $filename;
 				$report->file_size = $each->getSize();
 				$report->file_ext = $each->getClientOriginalExtension();
-				$ext = $each->getClientOriginalExtension();
+				
 				$report->original_filename = $each->getFilename().'.'.$ext;
 
 				Storage::disk('local')->put($each->getFilename().'.'.$ext,  File::get($each));
@@ -168,7 +167,7 @@ class ClientController extends Controller
 				$report->lab_num = $request->get('labno')[$key];
 				$report->save();
 			}
-			return redirect('/client/show?key='.Hashids::encode($request->get('client_id')));
+			return redirect('/client/fetch?origin='.Hashids::encode($request->get('client_id')));
 		}
 		return ['message' => 'Forbidden Request', 'status' => 403]; 
 	}
@@ -181,12 +180,23 @@ class ClientController extends Controller
 			{
 				$report = Report::find($request->get('id'));
 				if(!empty($report))
-				{
-					$report->forceDelete();
-					Storage::delete($report->original_filename);
+				{					
+					if (Storage::disk('local')->exists($report->original_filename))
+					{
+						try {
+								Storage::delete($report->original_filename);
+								$report->forceDelete();
 
-					return ['statusText' => 'OK','status' => 200, 
-							'message' => 'File Removed Successfully.'];
+								return ['statusText' => 'OK','status' => 200, 
+										'message' => 'File Removed Successfully.'];				
+
+							} catch (Exception $e) 
+							{
+								return ['statusText' => 'Error','status' => 200, 
+										'message' => 'Error Occured, Try Again !'];
+							}						
+					}
+
 				}
 			}
 		}
@@ -206,10 +216,14 @@ class ClientController extends Controller
 		if($admin == auth()->user()->role_id && $id)
 		{
 			$report = Report::whereId($id)->first();
-			$file = Storage::disk('local')->get($report->original_filename);
- 
-			return (new Response($file, 200))
-              		->header('Content-Type', $report->mime);
+			if($report)
+			{
+				$file = Storage::disk('local')->get($report->original_filename);	
+
+              	return (new Response($file, 200))
+              			->header('Content-Type', $report->mime)
+              			->header('Content-Length' , $report->file_size);
+            }
 		}
 		abort(404);
 	}

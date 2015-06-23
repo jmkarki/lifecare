@@ -28,7 +28,7 @@
                 </li>
                 <li class="meta-item">
                   <span class="glyphicon glyphicon-link"></span>
-                  <span>{{App\Date::ago($client->updated_at)}}</span>
+                  <span>{{$client->updated_at->diffForHumans()}}</span>
                 </li>
                 <li class="meta-item">
                   <span>***</span> <i class="fa fa-user"></i>
@@ -76,7 +76,7 @@
           </h3>
             <span ng-init="reports[{{$index}}].removing=false"></span>
             <p class="repo-list-description">
-              <small><span class="glyphicon glyphicon-link"></span></small> {{App\Date::ago($each->updated_at)}}
+              <small><span class="glyphicon glyphicon-link"></span></small> {{$each->updated_at->diffForHumans()}}
               &nbsp;<small><span class="glyphicon glyphicon-file"></span></small>
               Size - {{App\Date::size($each->file_size)}}
             </p>
